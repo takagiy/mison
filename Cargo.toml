@@ -1,6 +1,6 @@
 [package]
 name = "mison"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2024"
 license = "MIT"
 description = "Minimal and simple object notation: a compact text format for serde, read back through the types it was written from"
