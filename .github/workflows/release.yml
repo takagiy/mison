@@ -1,0 +1,27 @@
+name: Release
+
+# Publishes to crates.io when a version tag such as v0.1.1 is pushed. crates.io trusts this workflow
+# (Trusted Publishing), so no token is stored in the repository.
+on:
+  push:
+    tags: ["v*"]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v7
+      - uses: jdx/mise-action@v5
+      - name: Check that the tag matches the crate's version
+        run: |
+          version=$(cargo metadata --no-deps --format-version 1 | jq -r '.packages[0].version')
+          test "v$version" = "$GITHUB_REF_NAME" || { echo "tag $GITHUB_REF_NAME is not v$version"; exit 1; }
+      - run: mise run check
+      - uses: rust-lang/crates-io-auth-action@v1
+        id: auth
+      - run: cargo publish
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ steps.auth.outputs.token }}
