@@ -1,0 +1,27 @@
+[tools]
+# rustup picks the host from its own default, which differs per machine; on Windows the GNU host links
+# without Visual Studio.
+rust = [
+    { version = "1.99", os = ["linux", "macos"] },
+    { version = "1.99-x86_64-pc-windows-gnu", os = ["windows"] },
+]
+
+[tasks.test]
+description = "Run all tests"
+run = "cargo test"
+
+[tasks.lint]
+description = "Run clippy, failing on warnings"
+run = "cargo clippy --all-targets -- -D warnings"
+
+[tasks.fmt]
+description = "Format the code"
+run = "cargo fmt"
+
+[tasks.fmt-check]
+description = "Check formatting"
+run = "cargo fmt --check"
+
+[tasks.check]
+description = "Everything CI should run: formatting, lint and tests"
+depends = ["fmt-check", "lint", "test"]
