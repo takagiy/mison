@@ -1,6 +1,6 @@
 # MISON specification
 
-MISON (minified and simple object notation) writes the data JSON writes, with fewer characters. It is meant for readers that pay for every character they read, such as language models reading a tool's output.
+MISON (minimal and simple object notation) writes the data JSON writes, with fewer characters. It is meant for readers that pay for every character they read, such as language models reading a tool's output.
 
 MISON gets shorter by leaving out what the reader can work out: the quotes around plain strings, the braces around objects, the colons after keys. The cost is that a MISON text does not say what type each value has. `age=20` may hold the number 20 or the string `"20"`.
 

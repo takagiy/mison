@@ -9,12 +9,9 @@ permissions:
   contents: read
 
 jobs:
+  # One OS is enough: MISON is plain Rust with no platform-specific code. mise-action caches the toolchain.
   check:
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
       - uses: jdx/mise-action@v5

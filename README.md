@@ -1,6 +1,6 @@
 # mison
 
-MISON (minified and simple object notation) is a compact text format for [serde](https://serde.rs). It writes the data JSON writes with fewer characters, for readers that pay per character, such as language models reading a tool's output.
+MISON (minimal and simple object notation) is a compact text format for [serde](https://serde.rs). It writes the data JSON writes with fewer characters, for readers that pay per character, such as language models reading a tool's output.
 
 ```text
 JSON:  [{"ok":true,"file":"a.rs","replaced":[[2,2]]}]

@@ -1,4 +1,4 @@
-//! MISON (minified and simple object notation): a compact text format for serde that reads back only
+//! MISON (minimal and simple object notation): a compact text format for serde that reads back only
 //! through the type it was written from. See `SPEC.md` for the rules.
 #![doc = include_str!("../README.md")]
 
