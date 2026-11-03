@@ -1,0 +1,51 @@
+# 構文
+
+## 式
+
+MISON のテキストは、次の文法で書く \\(\mathit{Toplevel}\\) です。テキストは、改行で区切った式 \\(\mathit{Expr}\\) の並びです。
+
+\\[
+\newcommand{\code}[1]{{\kern0.1em \style{background-color: rgb(128 128 128 / 0.1)}{\kern0.1em #1\mathstrut\kern0.1em}\kern0.1em}}
+\begin{array}{rcl}
+\mathit{Toplevel} & ::= & \mathit{Expr}\ (\mathit{Newline}\ \mathit{Expr})^{\ast} \cr
+\mathit{Newline} & ::= & \mathtt{LF} \mid \mathtt{CR}\ \mathtt{LF} \cr
+\mathit{Expr} & ::= & \varepsilon \mid \mathit{Atom} \mid \mathit{List} \mid \mathit{Record} \cr
+\mathit{List} & ::= & \mathit{Elem}\ (\code{\texttt{,}}\ \mathit{Elem})^{+} \cr
+\mathit{Record} & ::= & \mathit{Field}\ (\mathit{Space}^{+}\ \mathit{Field})^{\ast} \cr
+\mathit{Field} & ::= & \mathit{String}\ \code{\texttt{=}}\ \mathit{Elem} \cr
+\mathit{Elem} & ::= & \varepsilon \mid \mathit{Atom} \mid \code{\texttt{(}}\ \mathit{Expr}\ \code{\texttt{)}} \cr
+\text{where}\quad \mathit{Space} & = & \lbrace c \mid c \text{ has the Unicode White_Space property},\ c \neq \mathtt{LF} \rbrace
+\end{array}
+\\]
+
+\\(\varepsilon\\) は空の式、つまり何も書かれていない式を表します。
+
+## リテラル
+
+\\[
+\begin{array}{rcl}
+\mathit{Atom} & ::= & \mathit{Bool} \mid \mathit{Int} \mid \mathit{Float} \mid \mathit{Range} \mid \mathit{String} \cr
+\mathit{Bool} & ::= & \code{\texttt{true}} \mid \code{\texttt{false}} \cr
+\mathit{Int} & ::= & \code{\texttt{0}} \mid \code{\texttt{-}}^{?}\ [\code{\texttt{1-9}}]\ [\code{\texttt{0-9}}]^{\ast} \cr
+\mathit{Float} & ::= & \code{\texttt{-}}^{?}\ (\code{\texttt{0}} \mid [\code{\texttt{1-9}}]\ [\code{\texttt{0-9}}]^{\ast})\ (\code{\texttt{.}}\ [\code{\texttt{0-9}}]^{+})^{?}\ ([\code{\texttt{eE}}]\ [\code{\texttt{+-}}]^{?}\ [\code{\texttt{0-9}}]^{+})^{?} \cr
+\mathit{Range} & ::= & \mathit{Int}\_{\geq 0}\ \code{\texttt{-}}\ \mathit{Int}\_{\geq 0} \cr
+\mathit{Int}\_{\geq 0} & ::= & \code{\texttt{0}} \mid [\code{\texttt{1-9}}]\ [\code{\texttt{0-9}}]^{\ast} \cr
+\mathit{String} & ::= & \code{\mathtt{\unicode{x22}}}\ \mathit{Char}\_{\mathrm{quoted}}^{\ast}\ \code{\mathtt{\unicode{x22}}} \mid \mathit{Char}\_{\mathrm{unquoted}}^{+} \cr
+\mathit{Char}\_{\mathrm{unquoted}} & ::= & \text{any character} \setminus \mathit{Special} \cr
+\mathit{Char}\_{\mathrm{quoted}} & ::= & (\text{any character} \setminus \lbrace \code{\mathtt{\unicode{x22}}},\ \code{\mathtt{\unicode{x5C}}} \rbrace) \mid \code{\mathtt{\unicode{x5C}\unicode{x22}}} \mid \code{\mathtt{\unicode{x5C}\unicode{x5C}}} \cr
+\text{where}\quad \mathit{Special} & = & \mathit{Whitespace} \cup \lbrace \code{\texttt{,}},\ \code{\texttt{(}},\ \code{\texttt{)}},\ \code{\texttt{=}},\ \code{\mathtt{\unicode{x22}}} \rbrace \cr
+\mathit{Whitespace} & = & \lbrace c \mid c \text{ has the Unicode White_Space property} \rbrace
+\end{array}
+\\]
+
+1 つのリテラルが、\\(\mathit{Atom}\\) の複数の候補に当てはまることがあります。たとえば `true` は \\(\mathit{Bool}\\) にも \\(\mathit{String}\\) にも当てはまります。どれとして評価するかは、型が決めます。
+
+## 有効なテキスト
+
+ある型と組み合わせて評価結果が定まるテキストを、有効なテキストとします。
+
+\\[
+\mathit{Valid} = \lbrace e \in \mathit{Toplevel} \mid \exists \tau.\ \exists v \in [\negthinspace[\tau]\negthinspace].\ e : \tau \Downarrow v \rbrace
+\\]
+
+\\(\tau\\) は[型](types.md)、\\(\Downarrow\\) は以降のページで定める評価関係です。たとえば `a=()` や `a=1 a=2` は \\(\mathit{Toplevel}\\) ですが、有効なテキストではありません。

@@ -1,0 +1,10 @@
+[book]
+title = "MISON"
+description = "Minimal and simple object notation: JSON に似た、トークン効率がよく人にも読みやすい記法"
+authors = ["Yuki Takagi"]
+language = "ja"
+src = "src"
+
+[output.html]
+mathjax-support = true
+git-repository-url = "https://github.com/takagiy/mison"

@@ -5,6 +5,11 @@ rust = [
     { version = "1.99", os = ["linux", "macos"], components = "clippy,rustfmt" },
     { version = "1.99-x86_64-pc-windows-gnu", os = ["windows"], components = "clippy,rustfmt" },
 ]
+mdbook = "0.5.4"
+
+[tasks.book]
+description = "Serve the book at http://localhost:3000, rebuilding on change"
+run = "mdbook serve book --open"
 
 [tasks.test]
 description = "Run all tests"

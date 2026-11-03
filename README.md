@@ -7,7 +7,7 @@ JSON:  [{"ok":true,"file":"a.rs","replaced":[[2,2]]}]
 MISON: ok=true file=a.rs replaced=2-2
 ```
 
-MISON leaves out what a reader can work out, so a text does not say what type each value has. It reads back only through the type it was written from: the type is the schema. See [SPEC.md](SPEC.md) for the rules.
+MISON leaves out what a reader can work out, so a text does not say what type each value has. It reads back only through the type it was written from: the type is the schema. See the [book](https://github.com/takagiy/mison/tree/master/book) for the rules.
 
 ## Usage
 
