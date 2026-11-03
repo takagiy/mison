@@ -10,6 +10,3 @@ An expression of a nullable type is evaluated by the following rules.
 \qquad
 \dfrac{e : \sigma \Downarrow v \quad e \neq \varepsilon}{e : \sigma? \Downarrow v}\ \textsf{(E-Lift)}
 \\]
-
-- E-Nil applies only to \\(\varepsilon\\), and E-Lift only to everything else, so the two rules never overlap.
-- \\(\varepsilon : \mathsf{string}? \Downarrow \mathsf{nil}\\) and \\(\code{\mathtt{\unicode{x22}\unicode{x22}}} : \mathsf{string}? \Downarrow \mathtt{\unicode{x22}\unicode{x22}}\\) are different.

@@ -24,4 +24,4 @@
   - [Scalar types](semantics/scalars.md)
   - [Nullable types](semantics/nullable.md)
   - [Arrays and tuples](semantics/arrays.md)
-  - [Records](semantics/records.md)
+  - [Records and maps](semantics/records.md)

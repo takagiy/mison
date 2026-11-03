@@ -10,6 +10,3 @@ nullable 型の式は、次の規則で評価します。
 \qquad
 \dfrac{e : \sigma \Downarrow v \quad e \neq \varepsilon}{e : \sigma? \Downarrow v}\ \textsf{(E-Lift)}
 \\]
-
-- E-Nil は \\(\varepsilon\\) にだけ、E-Lift は \\(\varepsilon\\) 以外にだけ当てはまるので、2 つの規則は重なりません。
-- \\(\varepsilon : \mathsf{string}? \Downarrow \mathsf{nil}\\) と \\(\code{\mathtt{\unicode{x22}\unicode{x22}}} : \mathsf{string}? \Downarrow \mathtt{\unicode{x22}\unicode{x22}}\\) は区別されます。

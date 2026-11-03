@@ -24,4 +24,4 @@
   - [スカラー型](semantics/scalars.md)
   - [nullable 型](semantics/nullable.md)
   - [配列とタプル](semantics/arrays.md)
-  - [レコード](semantics/records.md)
+  - [レコードとマップ](semantics/records.md)
