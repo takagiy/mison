@@ -2,18 +2,26 @@
 
 以降のページでは、評価を big-step 操作的意味論として定めます。
 
+## 環境
+
+評価の環境 \\(\rho\\) は、式がテキスト全体（\\(\mathrm{top}\\)）か、テキストの中の式（\\(\mathrm{inner}\\)）かを表します。
+
+\\[
+\rho \in \mathit{Env} = \lbrace \mathrm{top}, \mathrm{inner} \rbrace
+\\]
+
 ## 判断
 
 \\[
 \newcommand{\code}[1]{{\kern0.1em \style{background-color: rgb(128 128 128 / 0.1)}{\kern0.1em #1\mathstrut\kern0.1em}\kern0.1em}}
-e : \tau \Downarrow v
+\rho \vdash e : \tau \Downarrow v
 \\]
 
-\\(e \in \mathit{Toplevel}\\)（[構文](semantics/syntax.md)）、\\(\tau\\) は型、\\(v \in [\negthinspace[\tau]\negthinspace]\\)（[型と値](semantics/types.md)）です。
+環境 \\(\rho\\) で、式 \\(e\\)（[構文](semantics/syntax.md)）を型 \\(\tau\\) として評価すると、値 \\(v \in [\negthinspace[\tau]\negthinspace]\\)（[型と値](semantics/types.md)）になる、という判断です。テキスト \\(t \in \mathit{Toplevel}\\) は \\(\mathrm{top}\\) で評価します。
 
 ## 評価関係
 
-\\(\Downarrow\\) は、以降のページの規則で帰納的に定義します。\\(\Downarrow\\) は部分関係で、エラー値を持ちません。規則は決定的です。
+\\(\Downarrow\\) は、以降のページの規則で帰納的に定義します。\\(\Downarrow\\) は部分関係で、エラー値を持ちません。[高さ](semantics/types.md#高さ) 4 以下の型について、規則は決定的です。
 
 ## 記法
 

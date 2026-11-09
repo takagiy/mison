@@ -2,7 +2,7 @@
 
 ## 型
 
-型を、次のように帰納的に定義します。型は MISON のテキストには現れず、評価のときに式と組にして使います（[MISON を読む](../reading.md)）。
+型を、次のように帰納的に定義します。型は MISON のテキストには現れず、評価のときに式と組にして使います。
 
 \\[
 \begin{array}{rcll}
@@ -25,6 +25,19 @@
 
 結合の強さは、強い順に \\(?\\)、\\(\mathsf{array}^{+}\\)・\\(\mathsf{map}^{+}\\)、\\(\ast\\) です。
 
+## 高さ
+
+型 \\(\tau\\) の高さ \\(\mathrm{height}(\tau)\\) を、次のように定義します。
+
+\\[
+\begin{array}{rcl}
+\mathrm{height}(\sigma?) & = & \mathrm{height}(\sigma) \cr
+\mathrm{height}(\mathsf{array}^{+}\ \tau) & = & \mathrm{height}(\tau) + 1 \cr
+\mathrm{height}(\tau_1 \ast \cdots \ast \tau_n) & = & \max_i \mathrm{height}(\tau_i) + 1 \cr
+\mathrm{height}(\sigma) & = & 0 \quad \text{otherwise}
+\end{array}
+\\]
+
 ## 値域
 
 型 \\(\tau\\) の値域 \\([\negthinspace[\tau]\negthinspace]\\) を、次のように定義します。
@@ -36,7 +49,7 @@
 [\negthinspace[\mathsf{float}]\negthinspace] & = & \mathbb{Q} \cr
 [\negthinspace[\mathsf{string}]\negthinspace] & = & \text{Unicode strings} \cr
 [\negthinspace[\mathsf{range}]\negthinspace] & = & \lbrace \lbrace k \in \mathbb{N} \mid m \le k \le n \rbrace \mid m, n \in \mathbb{N} \rbrace \cr
-[\negthinspace[\mathsf{array}^{+}\ \tau]\negthinspace] & = & \bigcup_{n \ge 1} [\negthinspace[\tau]\negthinspace]^{n} \cr
+[\negthinspace[\mathsf{array}^{+}\ \tau]\negthinspace] & = & \left(\bigcup_{n \ge 1} [\negthinspace[\tau]\negthinspace]^{n}\right) \setminus \lbrace \langle \mathsf{nil} \rangle \rbrace \cr
 [\negthinspace[\tau_1 \ast \cdots \ast \tau_n]\negthinspace] & = & [\negthinspace[\tau_1]\negthinspace] \times \cdots \times [\negthinspace[\tau_n]\negthinspace] \cr
 [\negthinspace[\mathsf{record}\ \lbrace l_1 : \tau_1, \dots, l_n : \tau_n \rbrace]\negthinspace] & = & \lbrace \lbrace l_1 \mapsto v_1, \dots, l_n \mapsto v_n \rbrace \mid v_i \in [\negthinspace[\tau_i]\negthinspace] \rbrace \cr
 [\negthinspace[\mathsf{map}^{+}\ \tau]\negthinspace] & = & \lbrace f : [\negthinspace[\mathsf{string}]\negthinspace] \rightharpoonup_{\mathrm{fin}} [\negthinspace[\tau]\negthinspace] \mid \mathrm{dom}(f) \neq \emptyset \rbrace \cr

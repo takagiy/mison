@@ -2,7 +2,7 @@
 
 ## Types
 
-Types are defined inductively as follows. They do not appear in a MISON text; they are paired with expressions for evaluation (see [Reading MISON](../reading.md)).
+Types are defined inductively as follows. They do not appear in a MISON text; they are paired with expressions for evaluation.
 
 \\[
 \begin{array}{rcll}
@@ -25,6 +25,19 @@ Record types that differ only in the order of their fields are the same type.
 
 Operators bind from strongest to weakest: \\(?\\), \\(\mathsf{array}^{+}\\) and \\(\mathsf{map}^{+}\\), \\(\ast\\).
 
+## Height
+
+The height of a type \\(\tau\\), \\(\mathrm{height}(\tau)\\), is defined as follows.
+
+\\[
+\begin{array}{rcl}
+\mathrm{height}(\sigma?) & = & \mathrm{height}(\sigma) \cr
+\mathrm{height}(\mathsf{array}^{+}\ \tau) & = & \mathrm{height}(\tau) + 1 \cr
+\mathrm{height}(\tau_1 \ast \cdots \ast \tau_n) & = & \max_i \mathrm{height}(\tau_i) + 1 \cr
+\mathrm{height}(\sigma) & = & 0 \quad \text{otherwise}
+\end{array}
+\\]
+
 ## Values
 
 The values \\([\negthinspace[\tau]\negthinspace]\\) of a type \\(\tau\\) are defined as follows.
@@ -36,7 +49,7 @@ The values \\([\negthinspace[\tau]\negthinspace]\\) of a type \\(\tau\\) are def
 [\negthinspace[\mathsf{float}]\negthinspace] & = & \mathbb{Q} \cr
 [\negthinspace[\mathsf{string}]\negthinspace] & = & \text{Unicode strings} \cr
 [\negthinspace[\mathsf{range}]\negthinspace] & = & \lbrace \lbrace k \in \mathbb{N} \mid m \le k \le n \rbrace \mid m, n \in \mathbb{N} \rbrace \cr
-[\negthinspace[\mathsf{array}^{+}\ \tau]\negthinspace] & = & \bigcup_{n \ge 1} [\negthinspace[\tau]\negthinspace]^{n} \cr
+[\negthinspace[\mathsf{array}^{+}\ \tau]\negthinspace] & = & \left(\bigcup_{n \ge 1} [\negthinspace[\tau]\negthinspace]^{n}\right) \setminus \lbrace \langle \mathsf{nil} \rangle \rbrace \cr
 [\negthinspace[\tau_1 \ast \cdots \ast \tau_n]\negthinspace] & = & [\negthinspace[\tau_1]\negthinspace] \times \cdots \times [\negthinspace[\tau_n]\negthinspace] \cr
 [\negthinspace[\mathsf{record}\ \lbrace l_1 : \tau_1, \dots, l_n : \tau_n \rbrace]\negthinspace] & = & \lbrace \lbrace l_1 \mapsto v_1, \dots, l_n \mapsto v_n \rbrace \mid v_i \in [\negthinspace[\tau_i]\negthinspace] \rbrace \cr
 [\negthinspace[\mathsf{map}^{+}\ \tau]\negthinspace] & = & \lbrace f : [\negthinspace[\mathsf{string}]\negthinspace] \rightharpoonup_{\mathrm{fin}} [\negthinspace[\tau]\negthinspace] \mid \mathrm{dom}(f) \neq \emptyset \rbrace \cr

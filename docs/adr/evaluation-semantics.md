@@ -6,7 +6,7 @@ The book's formal definition (Syntax, Types and values, Semantics) states what a
 
 ## Decision
 
-Evaluation is a relation `e : τ ⇓ v` defined by big-step rules, one judgment for every position. Where a rule needs parentheses around an element or field value, it decides from the element's type (`composite-type(τ)`), not from the shape of the expression.
+Evaluation is defined by big-step rules over one judgment `ρ ⊢ e : τ ⇓ v`, whose environment `ρ ∈ {top, inner}` says whether the expression is the whole text. An array or tuple separates its elements by its height, so parentheses mark only a record or map used as an element or a field value, and blocks of lines in a field.
 
 | Issue | Decision | Why |
 |---|---|---|
@@ -16,26 +16,39 @@ Evaluation is a relation `e : τ ⇓ v` defined by big-step rules, one judgment 
 | The empty string | Only `""` | Leaves the empty expression ε free to mean nil |
 | Nested nullable `τ??` | Ruled out by the type grammar (`?` attaches only to a non-null σ) | nil has exactly one spelling, ε, so `τ??` could not be told from `τ?` |
 | `range` with `a > b` | Evaluates to the empty set | A `range` always evaluates when the type fits |
-| E-Lift and ε | E-Lift requires `e ≠ ε` | Keeps evaluation deterministic; as a result `⟨nil⟩` cannot be written under `array τ?` |
+| E-Lift and ε | E-Lift requires `e ≠ ε` | Keeps evaluation deterministic |
+| An array of a single nil | Not a value: `⟦array⁺ τ⟧` leaves out `⟨nil⟩`, and E-One requires `v ≠ nil` | `[nil]` is nil (the Nil chapter). Leaving out `⟨nil⟩` at every level also leaves out `⟨⟨nil⟩⟩` and deeper |
 | Nullable record fields | Cannot be omitted; written `a=` | The type alone fixes the form of the expression |
 | Duplicate labels | No derivation | JSON implementations disagree on them |
 | Unneeded parentheses | Not allowed | Keeps one way to write each value |
+| Separators | By the height of the array or tuple: `,` for 1, `;` for 2, a newline for 3, a `----` line for 4 and above | Each level that occurs in practice has its own separator, so values stay apart: `[[[1],[2]]]` is `1;2` while `[[[1]],[[2]]]` puts `1` and `2` on separate lines, and `[[nil,nil]]` is `,` while `[nil,nil]` is `;` |
+| An array with one element | Written as that element (E-One), with no condition on the text | The array's own separator never appears in a text of its element type, so E-One and E-Arr cannot both apply |
+| Parentheses | Around an element or field value whose text is a record or map, unless the elements are separated by newlines, and around a field value that holds a newline (a block) | Arrays no longer need them: their separators already say where each element ends |
+| The top level | In `top`, arrays and tuples of height up to 3 separate their elements by newlines; in `inner`, only height 3 does. Sub-expressions are evaluated in `inner` | Keeps one record per line, as edo writes its reports, without mistaking the top-level newline for the height-3 separator |
 | Whitespace around commas | Not allowed | Keeps one way to write each value |
 | A trailing newline | Not part of the grammar; `1⏎` is the lines `1` and ε | Removes the ambiguity between a trailing newline and a last empty line without extra rules |
 
 ## Consequences
 
-- Gained: evaluation is deterministic. For any `(e, τ)` there is at most one `v`, which follows by induction on expressions and types:
+- Gained: evaluation is deterministic for types of height at most 4. For any such `(e, τ)` there is at most one `v`, which follows by induction on expressions and types:
   - each scalar type has one rule, and the interpretations 𝒩, 𝒟 and 𝒮 are functions;
   - E-Nil and E-Lift are told apart by whether the expression is ε;
   - E-Arr, E-Tup and E-Rec are told apart by the form of the type, and the syntax splits an expression into its elements in exactly one way;
-  - E-Lines and E-Lines-Tup apply only to a text of two or more lines, the other rules only to a single line.
+  - E-Arr and E-One are told apart by the separator: an array's separator does not occur in a text of its element type;
+  - in `top`, heights up to 3 are separated by newlines, while E-One evaluates its element in `inner`, where no newline separates heights below 3.
 - Gained: the book can state the rules without exceptions or error cases.
 - Lost: a printer (value to text) needs canonical spellings, because evaluation is not injective. 𝒩 is a bijection and a non-empty `range` has one literal, but the empty range has many, and 𝒟 (`1`, `1.0`, `10e-1`) and 𝒮 (`abc`, `"abc"`) map several literals to one value.
+- Lost: types of height 5 or more share the `----` separator with height 4, so some of their values collide.
+- Lost: a line that is just the string `----`, inside an array of height 4 or more, reads as a separator; a writer must quote it.
+- Lost: `;` is a special character, so a bare string cannot hold it.
+- Lost: the library writes the earlier notation (parentheses around array elements, no `;`) and has to change.
 - Lost: the library reads more than the specification allows. It skips one trailing newline, accepts newlines inside parentheses as field separators, and skips extra whitespace around record fields. These texts have no derivation in the specification.
 
 ## Alternatives not taken
 
+- Counting the separators, as Julia does with `;`, `;;` and `;;;`, would cover every height, but a run of separators already means empty elements in MISON (`1,,2`), so nil between outer elements would need a spelling of its own.
+- Never writing a one-element array of composite values as its element would remove every collision, but would add parentheses to common texts such as `teams=(Ann,Ben)`.
+- Parenthesizing a one-element array only when writing it as its element would collide (E-Wrap) keeps the old notation, but needs a condition on the shape of the text in both E-One and the writer.
 - Error values in the result (`e : τ ⇓ error`) would let the rules report why a text fails, but every rule would need error cases, and none of them would change what a valid text means.
 - Deciding parentheses from the expression's shape (parenthesize lists and records) would remove types from that rule, but `[["Ann"],["Ben"]]` would then be written `Ann,Ben`, the same as `[["Ann","Ben"]]`.
 - A trailing newline as part of the top level (`Toplevel ::= … Newline?`) matches the library, but makes `1⏎` both one line and two, so it needs a separate top-level judgment to stay deterministic.

@@ -12,10 +12,6 @@
 - [Nil](nil.md)
 - [Ranges](ranges.md)
 
-# Reading
-
-- [Reading MISON](reading.md)
-
 # Formal definition
 
 - [Syntax](semantics/syntax.md)

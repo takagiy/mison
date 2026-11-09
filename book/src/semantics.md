@@ -2,18 +2,26 @@
 
 The following pages define evaluation as a big-step operational semantics.
 
+## Environment
+
+The environment \\(\rho\\) of an evaluation says whether the expression is a whole text (\\(\mathrm{top}\\)) or an expression inside a text (\\(\mathrm{inner}\\)).
+
+\\[
+\rho \in \mathit{Env} = \lbrace \mathrm{top}, \mathrm{inner} \rbrace
+\\]
+
 ## Judgment
 
 \\[
 \newcommand{\code}[1]{{\kern0.1em \style{background-color: rgb(128 128 128 / 0.1)}{\kern0.1em #1\mathstrut\kern0.1em}\kern0.1em}}
-e : \tau \Downarrow v
+\rho \vdash e : \tau \Downarrow v
 \\]
 
-Here \\(e \in \mathit{Toplevel}\\) ([Syntax](semantics/syntax.md)), \\(\tau\\) is a type, and \\(v \in [\negthinspace[\tau]\negthinspace]\\) ([Types and values](semantics/types.md)).
+It says that evaluating the expression \\(e\\) ([Syntax](semantics/syntax.md)) as the type \\(\tau\\) in the environment \\(\rho\\) gives the value \\(v \in [\negthinspace[\tau]\negthinspace]\\) ([Types and values](semantics/types.md)). A text \\(t \in \mathit{Toplevel}\\) is evaluated in \\(\mathrm{top}\\).
 
 ## Evaluation relation
 
-\\(\Downarrow\\) is defined inductively by the rules on the following pages. It is a partial relation with no error value, and the rules are deterministic.
+\\(\Downarrow\\) is defined inductively by the rules on the following pages. It is a partial relation with no error value, and the rules are deterministic for types of [height](semantics/types.md#height) at most 4.
 
 ## Notation
 

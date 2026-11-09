@@ -12,10 +12,6 @@
 - [nil](nil.md)
 - [範囲](ranges.md)
 
-# 読み取り
-
-- [MISON を読む](reading.md)
-
 # 形式的定義
 
 - [構文](semantics/syntax.md)
