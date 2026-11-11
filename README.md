@@ -1,6 +1,6 @@
 # mison
 
-MISON (minimal and simple object notation) is a simpler JSON-like notation for structured data. It is easy to read even for people seeing it for the first time, and so for language models too. This crate implements it for [serde](https://serde.rs).
+MISON (minimal and simple object notation) is a JSON-like notation that is token-efficient yet human-friendly. It is easy to read even for people seeing it for the first time, and so for language models too. This crate implements it for [serde](https://serde.rs).
 
 ```text
 JSON:  [{"ok":true,"file":"a.rs","range":[[2,2]]}]
