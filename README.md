@@ -1,13 +1,15 @@
 # mison
 
-MISON (minimal and simple object notation) is a JSON-like notation that is token-efficient yet human-friendly, with a [serde](https://serde.rs) implementation in this crate. It writes the data JSON writes with fewer characters, for readers that pay per character, such as language models reading a tool's output.
+MISON (minimal and simple object notation) is a simpler JSON-like notation for structured data. It is easy to read even for people seeing it for the first time, and so for language models too. This crate implements it for [serde](https://serde.rs).
 
 ```text
-JSON:  [{"ok":true,"file":"a.rs","replaced":[[2,2]]}]
-MISON: ok=true file=a.rs replaced=2-2
+JSON:  [{"ok":true,"file":"a.rs","range":[[2,2]]}]
+MISON: ok=true file=a.rs range=2-2
 ```
 
-MISON leaves out what a reader can work out, so a text does not say what type each value has. It reads back only through the type it was written from: the type is the schema. See the [book](https://github.com/takagiy/mison/tree/master/book) for the rules.
+Its main use is passing structured data to a language model. Exchanges between programs with no language model in between, such as RPC or API requests and responses, are not intended.
+
+A program parsing MISON uses the type of the data it expects as a schema. So MISON leaves out the quotes and brackets the type can fill back in, and writes the same data in fewer characters than JSON. The [book](https://github.com/takagiy/mison/tree/master/book) defines the notation.
 
 ## Usage
 
@@ -19,12 +21,12 @@ use std::ops::RangeInclusive;
 struct Report {
     ok: bool,
     file: String,
-    replaced: Vec<RangeInclusive<usize>>,
+    range: Vec<RangeInclusive<usize>>,
 }
 
-let report = Report { ok: true, file: "a.rs".into(), replaced: vec![2..=2] };
+let report = Report { ok: true, file: "a.rs".into(), range: vec![2..=2] };
 let text = mison::to_string(&report)?;
-assert_eq!(text, "ok=true file=a.rs replaced=2-2");
+assert_eq!(text, "ok=true file=a.rs range=2-2");
 assert_eq!(mison::from_str::<Report>(&text)?, report);
 # Ok::<(), mison::Error>(())
 ```
