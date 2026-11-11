@@ -31,3 +31,7 @@ name=bob email=bob@example.com
 ```mison
 from=(city=Tokyo airport=HND) to=(city=Paris airport=CDG)
 ```
+
+## マップ
+
+レコードが持つキーは、型で決まっています。最初の例なら `name` と `email` です。マップは、文字列のキーをいくつでも持てます。キーが前もってわからないデータは、マップで表します。環境変数の一覧がその例です。書き方は、レコードと同じです。

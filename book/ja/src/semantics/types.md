@@ -46,9 +46,9 @@
 \begin{array}{rcl}
 [\negthinspace[\mathsf{bool}]\negthinspace] & = & \lbrace \mathrm{T}, \mathrm{F} \rbrace \cr
 [\negthinspace[\mathsf{int}]\negthinspace] & = & \mathbb{Z} \cr
-[\negthinspace[\mathsf{float}]\negthinspace] & = & \mathbb{Q} \cr
+[\negthinspace[\mathsf{float}]\negthinspace] & = & \mathbb{Q} \cup \lbrace +\infty, -\infty, \mathrm{NaN} \rbrace \cr
 [\negthinspace[\mathsf{string}]\negthinspace] & = & \text{Unicode strings} \cr
-[\negthinspace[\mathsf{range}]\negthinspace] & = & \lbrace \lbrace k \in \mathbb{N} \mid m \le k \le n \rbrace \mid m, n \in \mathbb{N} \rbrace \cr
+[\negthinspace[\mathsf{range}]\negthinspace] & = & \lbrace \lbrace k \in \mathbb{Z} \mid m \le k \le n \rbrace \mid m, n \in \mathbb{Z} \rbrace \cr
 [\negthinspace[\mathsf{array}^{+}\ \tau]\negthinspace] & = & \lbrace \langle v_1, \dots, v_n \rangle \mid n \ge 1,\ v_i \in [\negthinspace[\tau]\negthinspace] \rbrace \setminus \lbrace \langle \mathsf{nil} \rangle \rbrace \cr
 [\negthinspace[\tau_1 \ast \cdots \ast \tau_n]\negthinspace] & = & \lbrace \langle v_1, \dots, v_n \rangle \mid v_i \in [\negthinspace[\tau_i]\negthinspace] \rbrace \cr
 [\negthinspace[\mathsf{record}\ \lbrace l_1 : \tau_1, \dots, l_n : \tau_n \rbrace]\negthinspace] & = & \lbrace \lbrace l_1 \mapsto v_1, \dots, l_n \mapsto v_n \rbrace \mid v_i \in [\negthinspace[\tau_i]\negthinspace] \rbrace \cr

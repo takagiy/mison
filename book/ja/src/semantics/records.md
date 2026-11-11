@@ -14,7 +14,7 @@
 \\]
 
 \\[
-\text{where}\quad \mathit{field}\_i = \begin{cases} \ell_i\code{\texttt{=}}e_i & \text{if } e_i \in \mathit{Atom} \cup \mathit{Array} \cr \ell_i\code{\texttt{=(}}e_i\code{\texttt{)}} & \text{if } e_i \in \mathit{Record} \cr \ell_i\code{\texttt{=(}}\ \mathit{Newline}\ e_i\ \mathit{Newline}\ \code{\texttt{)}} & \text{if } e_i \in \mathit{Matrix} \end{cases}
+\text{where}\quad \mathit{field}\_i = \begin{cases} \ell_i\code{\texttt{=}}e_i & \text{if } e_i \in \mathit{Atom} \cup \mathit{Array} \cup \mathit{BracketArray} \cr \ell_i\code{\texttt{=(}}e_i\code{\texttt{)}} & \text{if } e_i \in \mathit{Record} \cr \ell_i\code{\texttt{=(}}\ \mathit{Newline}\ e_i\ \mathit{Newline}\ \code{\texttt{)}} & \text{if } e_i \in \mathit{Matrix} \end{cases}
 \\]
 
 \\(\ell_i\\) は式に書かれたキーで、\\(l_i = \mathcal{S}(\ell_i)\\) はそのキーが表すラベルです。つまり、`a=1` と `"a"=1` は同じラベルを持ちます。レコード型のフィールドの順序は問わないので、式のフィールドもどの順序で書いてもかまいません。ラベルの重複や過不足があるときは、導出なしです。

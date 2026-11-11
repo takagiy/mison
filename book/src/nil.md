@@ -13,7 +13,7 @@ Nil is the absence of a value. It is written as nothing.
 MISON has one way to say "nothing". These values are all nil:
 
 - an empty array,
-- an empty record,
+- an empty map,
 - an array whose only element is nil.
 
 ```json

@@ -8,7 +8,7 @@
 - [Numbers](numbers.md)
 - [Booleans](booleans.md)
 - [Records](records.md)
-- [Arrays and matrices](arrays.md)
+- [Arrays, matrices and tuples](arrays.md)
 - [Nil](nil.md)
 - [Ranges](ranges.md)
 

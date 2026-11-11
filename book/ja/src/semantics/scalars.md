@@ -20,15 +20,16 @@
 \\[
 \dfrac{s \in \mathit{String}}{\rho \vdash s : \mathsf{string} \Downarrow \mathcal{S}(s)}\ \textsf{(E-Str)}
 \qquad
-\dfrac{a, b \in \mathit{Int}\_{\geq 0}}{\rho \vdash a\code{\texttt{-}}b : \mathsf{range} \Downarrow \lbrace k \in \mathbb{N} \mid \mathcal{N}(a) \le k \le \mathcal{N}(b) \rbrace}\ \textsf{(E-Range)}
+\dfrac{a, b \in \mathit{RangeBound}}{\rho \vdash a\code{\texttt{-}}b : \mathsf{range} \Downarrow \lbrace k \in \mathbb{Z} \mid \mathcal{B}(a) \le k \le \mathcal{B}(b) \rbrace}\ \textsf{(E-Range)}
 \\]
 
 \\[
 \begin{array}{rcll}
 \text{where}\quad \mathcal{N} & : & \mathit{Int} \to \mathbb{Z} & d \mapsto \text{the integer that } d \text{ denotes} \cr
-\mathcal{D} & : & \mathit{Float} \to \mathbb{Q} & f \mapsto \text{the rational number that } f \text{ denotes} \cr
-\mathcal{S} & : & \mathit{String} \to \text{Unicode strings} & s \mapsto \text{the string that } s \text{ denotes}
+\mathcal{D} & : & \mathit{Float} \to [\negthinspace[\mathsf{float}]\negthinspace] & f \mapsto \text{the value that } f \text{ denotes} \cr
+\mathcal{S} & : & \mathit{String} \to \text{Unicode strings} & s \mapsto \text{the string that } s \text{ denotes} \cr
+\mathcal{B} & : & \mathit{RangeBound} \to \mathbb{Z} & d \mapsto \mathcal{N}(d),\ \code{\texttt{(}}d\code{\texttt{)}} \mapsto \mathcal{N}(d)
 \end{array}
 \\]
 
-\\(\mathit{Int}\\)・\\(\mathit{Int}\_{\geq 0}\\)・\\(\mathit{Float}\\)・\\(\mathit{String}\\) は、[構文](syntax.md#リテラル)で定義したリテラルです。
+\\(\mathit{Int}\\)・\\(\mathit{RangeBound}\\)・\\(\mathit{Float}\\)・\\(\mathit{String}\\) は、[構文](syntax.md#リテラル)で定義したリテラルです。

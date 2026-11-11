@@ -1,6 +1,6 @@
-# Arrays and matrices
+# Arrays, matrices and tuples
 
-An array, or a tuple, is a sequence of values.
+Arrays and tuples are sequences of values.
 
 ## Arrays
 

@@ -37,8 +37,11 @@ MISON のテキストは、次の文法で書く \\(\mathit{Toplevel}\\) です�
 \mathit{Bool} & ::= & \code{\texttt{true}} \mid \code{\texttt{false}} \cr
 \mathit{Int} & ::= & \code{\texttt{0}} \mid \code{\texttt{-}}^{?}\ [\code{\texttt{1-9}}]\ [\code{\texttt{0-9}}]^{\ast} \cr
 \mathit{Float} & ::= & \code{\texttt{-}}^{?}\ (\code{\texttt{0}} \mid [\code{\texttt{1-9}}]\ [\code{\texttt{0-9}}]^{\ast})\ (\code{\texttt{.}}\ [\code{\texttt{0-9}}]^{+})^{?}\ ([\code{\texttt{eE}}]\ [\code{\texttt{+-}}]^{?}\ [\code{\texttt{0-9}}]^{+})^{?} \cr
-\mathit{Range} & ::= & \mathit{Int}\_{\geq 0}\ \code{\texttt{-}}\ \mathit{Int}\_{\geq 0} \cr
+& \mid & \code{\texttt{NaN}} \mid \code{\texttt{inf}} \mid \code{\texttt{-inf}} \cr
+\mathit{Range} & ::= & \mathit{RangeBound}\ \code{\texttt{-}}\ \mathit{RangeBound} \cr
+\mathit{RangeBound} & ::= & \mathit{Int}\_{\geq 0} \mid \code{\texttt{(}}\mathit{Int}\_{<0}\code{\texttt{)}} \cr
 \mathit{Int}\_{\geq 0} & ::= & \code{\texttt{0}} \mid [\code{\texttt{1-9}}]\ [\code{\texttt{0-9}}]^{\ast} \cr
+\mathit{Int}\_{<0} & ::= & \code{\texttt{-}}\ [\code{\texttt{1-9}}]\ [\code{\texttt{0-9}}]^{\ast} \cr
 \mathit{String} & ::= & \code{\mathtt{\unicode{x22}}}\ \mathit{Char}\_{\mathrm{quoted}}^{\ast}\ \code{\mathtt{\unicode{x22}}} \mid \mathit{Char}\_{\mathrm{unquoted}}^{+} \cr
 \mathit{String}\_{\mathrm{brk}} & ::= & \code{\mathtt{\unicode{x22}}}\ \mathit{Char}\_{\mathrm{quoted}}^{\ast}\ \code{\mathtt{\unicode{x22}}} \mid \mathit{Char}\_{\mathrm{unquoted},\mathrm{brk}}^{+} \cr
 \mathit{Char}\_{\mathrm{unquoted}} & ::= & \text{any character} \setminus \mathit{Special} \cr

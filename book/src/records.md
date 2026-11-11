@@ -31,3 +31,7 @@ A nested record is written in parentheses to avoid ambiguity:
 ```mison
 from=(city=Tokyo airport=HND) to=(city=Paris airport=CDG)
 ```
+
+## Maps
+
+A record has the keys its type lists, such as `name` and `email` in the first example. A map can hold any number of string keys. Data whose keys are not known in advance goes in a map; a list of environment variables is one example. A map is written like a record.

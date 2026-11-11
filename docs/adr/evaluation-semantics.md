@@ -12,7 +12,7 @@ Evaluation is defined by big-step rules over one judgment `ρ ⊢ e : τ ⇓ v`,
 |---|---|---|
 | A text that does not fit its type | No derivation; there is no error value | Keeps the rules minimal. "Does not fit" and "no rule applies" are the same thing |
 | `-0` | Not an `Int` literal | Makes the integer interpretation 𝒩 a bijection |
-| Values of `float` | ℚ | Evaluation is exact on paper; rounding is left to implementations |
+| Values of `float` | ℚ ∪ {+∞, −∞, NaN}, written `inf`, `-inf` and `NaN` | Evaluation is exact on paper; rounding is left to implementations. The infinities and NaN are floating-point values that programs hold |
 | The empty string | Only `""` | Leaves the empty expression ε free to mean nil |
 | Nested nullable `τ??` | Ruled out by the type grammar (`?` attaches only to a non-null σ) | nil has exactly one spelling, ε, so `τ??` could not be told from `τ?` |
 | `range` with `a > b` | Evaluates to the empty set | A `range` always evaluates when the type fits |

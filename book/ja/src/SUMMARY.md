@@ -8,7 +8,7 @@
 - [数値](numbers.md)
 - [真偽値](booleans.md)
 - [レコード](records.md)
-- [配列とマトリクス](arrays.md)
+- [配列、マトリクス、タプル](arrays.md)
 - [nil](nil.md)
 - [範囲](ranges.md)
 
