@@ -20,8 +20,10 @@ MISON のテキストは、次の文法で書く \\(\mathit{Toplevel}\\) です�
 \mathit{MatrixDelimiter} & ::= & \mathit{Newline} \mid \mathit{Newline}\ \code{\mathtt{\unicode{x2D}\unicode{x2D}\unicode{x2D}\unicode{x2D}}}\ \mathit{Newline} \cr
 \mathit{Newline} & ::= & \mathtt{LF} \mid \mathtt{CR}\ \mathtt{LF} \cr
 \mathit{BracketArray} & ::= & \code{\mathtt{\unicode{x5B}}}\ \mathit{BracketArrayItem}\ (\code{\texttt{,}}\ \mathit{BracketArrayItem})^{\ast}\ \code{\mathtt{\unicode{x5D}}} \cr
-\mathit{BracketArrayItem} & ::= & \mathit{Atom} \mid \code{\texttt{(}}\ \mathit{Record}\ \code{\texttt{)}} \mid \mathit{BracketArray} \cr
-\text{where}\quad \mathit{Space} & = & \lbrace c \mid c \text{ has the Unicode White_Space property},\ c \neq \mathtt{LF} \rbrace
+\mathit{BracketArrayItem} & ::= & \mathit{Atom}\_{\mathrm{brk}} \mid \code{\texttt{(}}\ \mathit{Record}\_{\mathrm{brk}}\ \code{\texttt{)}} \mid \mathit{BracketArray} \cr
+\text{where}\quad \mathit{Space} & = & \lbrace c \mid c \text{ has the Unicode White_Space property},\ c \neq \mathtt{LF} \rbrace \cr
+\mathit{Atom}\_{\mathrm{brk}} & = & \mathit{Atom} \text{ derived with } \mathit{String}\_{\mathrm{brk}} \text{ in place of } \mathit{String} \cr
+\mathit{Record}\_{\mathrm{brk}} & = & \mathit{Record} \text{ derived with } \mathit{String}\_{\mathrm{brk}} \text{ in place of } \mathit{String}
 \end{array}
 \\]
 
@@ -38,11 +40,12 @@ MISON のテキストは、次の文法で書く \\(\mathit{Toplevel}\\) です�
 \mathit{Range} & ::= & \mathit{Int}\_{\geq 0}\ \code{\texttt{-}}\ \mathit{Int}\_{\geq 0} \cr
 \mathit{Int}\_{\geq 0} & ::= & \code{\texttt{0}} \mid [\code{\texttt{1-9}}]\ [\code{\texttt{0-9}}]^{\ast} \cr
 \mathit{String} & ::= & \code{\mathtt{\unicode{x22}}}\ \mathit{Char}\_{\mathrm{quoted}}^{\ast}\ \code{\mathtt{\unicode{x22}}} \mid \mathit{Char}\_{\mathrm{unquoted}}^{+} \cr
+\mathit{String}\_{\mathrm{brk}} & ::= & \code{\mathtt{\unicode{x22}}}\ \mathit{Char}\_{\mathrm{quoted}}^{\ast}\ \code{\mathtt{\unicode{x22}}} \mid \mathit{Char}\_{\mathrm{unquoted},\mathrm{brk}}^{+} \cr
 \mathit{Char}\_{\mathrm{unquoted}} & ::= & \text{any character} \setminus \mathit{Special} \cr
+\mathit{Char}\_{\mathrm{unquoted},\mathrm{brk}} & ::= & \text{any character} \setminus (\mathit{Special} \cup \lbrace \code{\mathtt{\unicode{x5B}}},\ \code{\mathtt{\unicode{x5D}}} \rbrace) \cr
 \mathit{Char}\_{\mathrm{quoted}} & ::= & (\text{any character} \setminus \lbrace \code{\mathtt{\unicode{x22}}},\ \code{\mathtt{\unicode{x5C}}} \rbrace) \mid \code{\mathtt{\unicode{x5C}\unicode{x22}}} \mid \code{\mathtt{\unicode{x5C}\unicode{x5C}}} \cr
-\text{where}\quad \mathit{Special} & = & \mathit{Whitespace} \cup \lbrace \code{\texttt{,}},\ \code{\texttt{;}},\ \code{\texttt{(}},\ \code{\texttt{)}},\ \code{\texttt{=}},\ \code{\mathtt{\unicode{x22}}} \rbrace \cup \mathit{Brackets} \cr
-\mathit{Whitespace} & = & \lbrace c \mid c \text{ has the Unicode White_Space property} \rbrace \cr
-\mathit{Brackets} & = & \begin{cases} \lbrace \code{\mathtt{\unicode{x5B}}},\ \code{\mathtt{\unicode{x5D}}} \rbrace & \text{within a } \mathit{BracketArray} \cr \emptyset & \text{otherwise} \end{cases}
+\text{where}\quad \mathit{Special} & = & \mathit{Whitespace} \cup \lbrace \code{\texttt{,}},\ \code{\texttt{;}},\ \code{\texttt{(}},\ \code{\texttt{)}},\ \code{\texttt{=}},\ \code{\mathtt{\unicode{x22}}} \rbrace \cr
+\mathit{Whitespace} & = & \lbrace c \mid c \text{ has the Unicode White_Space property} \rbrace
 \end{array}
 \\]
 
