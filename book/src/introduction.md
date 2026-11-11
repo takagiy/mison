@@ -1,17 +1,23 @@
 # Introduction
 
-MISON (minimal and simple object notation) is a JSON-like notation that is token-efficient yet human-friendly. It writes the data JSON writes with fewer characters, for readers that pay for every character they read, such as language models reading a tool's output.
+## Overview
+
+MISON (minimal and simple object notation) is a JSON-like notation for structured data that is easy for people to read, and so for language models too.
 
 ```json
-[{"ok":true,"file":"a.rs","replaced":[[2,2]]}]
+[{"ok":true,"file":"a.rs","range":[[2,2]]}]
 ```
 
 ```mison
-ok=true file=a.rs replaced=2-2
+ok=true file=a.rs range=2-2
 ```
 
-MISON gets shorter by leaving out what the reader can work out: the quotes around plain strings, the braces around records, the colons after keys, and nesting that holds a single value.
+## Use cases
 
-The cost is that a MISON text does not say what type each value has. `age=20` may hold the number 20 or the string `"20"`. A program reading MISON already knows the shape of the data it expects, and that shape tells it how to read each value. The [formal definition](semantics/syntax.md) states precisely how the type decides the reading.
+Its main use is passing structured data to a language model in fewer tokens.
 
-Each chapter on a value shows the same data in JSON and in MISON.
+Exchanges between programs with no language model in between, such as RPC or API requests and responses, are not intended.
+
+## Types and parsing
+
+A program parsing MISON already knows the type of the data it expects. So MISON leaves out the quotes and brackets the type can fill back in, and writes the same data in fewer characters than JSON. For example, `age=20` reads as the number 20 if the type is a number, and as the string `"20"` if it is a string.

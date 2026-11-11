@@ -4,7 +4,7 @@ The following pages define evaluation as a big-step operational semantics.
 
 ## Environment
 
-The environment \\(\rho\\) of an evaluation says whether the expression is a whole text (\\(\mathrm{top}\\)), an expression inside a text (\\(\mathrm{inner}\\)), or an expression inside a \\(\mathit{BracketArray}\\) (\\(\mathrm{brk}\\)).
+The environment \\(\rho\\) of an evaluation says where the expression is: \\(\mathrm{top}\\) for the whole text, \\(\mathrm{inner}\\) for inside a text, and \\(\mathrm{brk}\\) for inside a \\(\mathit{BracketArray}\\).
 
 \\[
 \rho \in \mathit{Env} = \lbrace \mathrm{top}, \mathrm{inner}, \mathrm{brk} \rbrace

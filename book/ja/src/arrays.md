@@ -14,6 +14,16 @@
 ingredients=spam,ham,eggs
 ```
 
+1 次元や 2 次元の配列がレコードを含むときは、レコードを丸括弧で囲みます。
+
+```json
+{"todos":[{"task":"laundry","done":true},{"task":"groceries","done":false}]}
+```
+
+```mison
+todos=(task=laundry done=true),(task=groceries done=false)
+```
+
 ## マトリクス
 
 2 次元の配列は、1 次元の配列を `;` で区切ります。
@@ -69,7 +79,7 @@ blocks=[[[[[1,2]]]],[[[[3,4]]]]]
 
 ## トップレベルの配列
 
-トップレベルでは、1 次元と 2 次元の配列の要素を、`,` や `;` の代わりに改行で区切ります。
+トップレベルの 1 次元と 2 次元の配列は、`,` や `;` の代わりに改行で要素を区切ります。
 
 ```json
 [{"name":"Ash","buddy":"Pikachu"},{"name":"Dawn","buddy":"Piplup"},{"name":"Brock","buddy":"Croagunk"}]

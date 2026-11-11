@@ -43,7 +43,7 @@ The special characters are:
 | `"` | starts a quoted string |
 | `[` `]` | enclose an array of five or more dimensions |
 
-`[` and `]` are special only inside the `[ ]` of an [array of five or more dimensions](arrays.md#arrays-of-five-or-more-dimensions).
+`[` and `]` are special only inside an [array of five or more dimensions](arrays.md#arrays-of-five-or-more-dimensions).
 
 ## Escapes
 

@@ -14,6 +14,16 @@ A one-dimensional array separates its elements with `,`:
 ingredients=spam,ham,eggs
 ```
 
+When a one- or two-dimensional array holds records, they are written in parentheses:
+
+```json
+{"todos":[{"task":"laundry","done":true},{"task":"groceries","done":false}]}
+```
+
+```mison
+todos=(task=laundry done=true),(task=groceries done=false)
+```
+
 ## Matrices
 
 A two-dimensional array separates one-dimensional arrays with `;`:

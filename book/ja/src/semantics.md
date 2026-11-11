@@ -4,7 +4,7 @@
 
 ## 環境
 
-評価の環境 \\(\rho\\) は、式がテキスト全体（\\(\mathrm{top}\\)）か、テキストの中の式（\\(\mathrm{inner}\\)）か、\\(\mathit{BracketArray}\\) の中の式（\\(\mathrm{brk}\\)）かを表します。
+評価の環境 \\(\rho\\) は、式の位置を表します。\\(\mathrm{top}\\) はテキスト全体、\\(\mathrm{inner}\\) はテキストの中、\\(\mathrm{brk}\\) は \\(\mathit{BracketArray}\\) の中です。
 
 \\[
 \rho \in \mathit{Env} = \lbrace \mathrm{top}, \mathrm{inner}, \mathrm{brk} \rbrace

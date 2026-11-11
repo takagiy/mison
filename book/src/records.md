@@ -31,13 +31,3 @@ A nested record is written in parentheses to avoid ambiguity:
 ```mison
 from=(city=Tokyo airport=HND) to=(city=Paris airport=CDG)
 ```
-
-Records in an [array](arrays.md) whose elements are separated by `,` or `;` are written in parentheses too:
-
-```json
-{"todos":[{"task":"laundry","done":true},{"task":"groceries","done":false}]}
-```
-
-```mison
-todos=(task=laundry done=true),(task=groceries done=false)
-```

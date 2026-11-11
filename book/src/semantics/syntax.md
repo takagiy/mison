@@ -25,7 +25,7 @@ A MISON text is a \\(\mathit{Toplevel}\\), written by this grammar.
 \end{array}
 \\]
 
-\\(\varepsilon\\) is the empty expression: nothing written at all.
+\\(\varepsilon\\) stands for an expression with nothing written in it.
 
 ## Literals
 

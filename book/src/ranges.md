@@ -8,10 +8,4 @@ A range is an interval with a start and an end. It is written as the two ends jo
 
 A negative end keeps its sign, so `-3--1` is the range from -3 to -1. Whether the end itself is included is up to the program reading the range.
 
-`-` binds more tightly than `,`, so an array of ranges needs no parentheses:
-
-```mison
-replaced=2-3,10-12
-```
-
 JSON has no range of its own, so this page shows MISON only.

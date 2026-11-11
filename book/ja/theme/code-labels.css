@@ -1,0 +1,10 @@
+/* Name the notation of each example block, since JSON and MISON blocks sit side by side. */
+code.language-json::before,
+code.language-mison::before {
+  display: block;
+  margin-bottom: 0.4em;
+  font-size: 0.75em;
+  opacity: 0.6;
+}
+code.language-json::before { content: "JSON"; }
+code.language-mison::before { content: "MISON"; }
