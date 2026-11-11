@@ -4,10 +4,10 @@ The following pages define evaluation as a big-step operational semantics.
 
 ## Environment
 
-The environment \\(\rho\\) of an evaluation says whether the expression is a whole text (\\(\mathrm{top}\\)) or an expression inside a text (\\(\mathrm{inner}\\)).
+The environment \\(\rho\\) of an evaluation says whether the expression is a whole text (\\(\mathrm{top}\\)), an expression inside a text (\\(\mathrm{inner}\\)), or an expression inside a \\(\mathit{BracketArray}\\) (\\(\mathrm{brk}\\)).
 
 \\[
-\rho \in \mathit{Env} = \lbrace \mathrm{top}, \mathrm{inner} \rbrace
+\rho \in \mathit{Env} = \lbrace \mathrm{top}, \mathrm{inner}, \mathrm{brk} \rbrace
 \\]
 
 ## Judgment
@@ -21,7 +21,7 @@ It says that evaluating the expression \\(e\\) ([Syntax](semantics/syntax.md)) a
 
 ## Evaluation relation
 
-\\(\Downarrow\\) is defined inductively by the rules on the following pages. It is a partial relation with no error value, and the rules are deterministic for types of [height](semantics/types.md#height) at most 4.
+\\(\Downarrow\\) is defined inductively by the rules on the following pages. It is a partial relation with no error value, and the rules are deterministic.
 
 ## Notation
 

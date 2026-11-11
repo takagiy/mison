@@ -32,7 +32,7 @@ name=bob email=bob@example.com
 from=(city=Tokyo airport=HND) to=(city=Paris airport=CDG)
 ```
 
-[配列](arrays.md)の中のレコードも、丸括弧で囲みます。
+要素を `,` か `;` で区切る[配列](arrays.md)の中のレコードも、丸括弧で囲みます。
 
 ```json
 {"todos":[{"task":"laundry","done":true},{"task":"groceries","done":false}]}

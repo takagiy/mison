@@ -4,10 +4,10 @@
 
 ## 環境
 
-評価の環境 \\(\rho\\) は、式がテキスト全体（\\(\mathrm{top}\\)）か、テキストの中の式（\\(\mathrm{inner}\\)）かを表します。
+評価の環境 \\(\rho\\) は、式がテキスト全体（\\(\mathrm{top}\\)）か、テキストの中の式（\\(\mathrm{inner}\\)）か、\\(\mathit{BracketArray}\\) の中の式（\\(\mathrm{brk}\\)）かを表します。
 
 \\[
-\rho \in \mathit{Env} = \lbrace \mathrm{top}, \mathrm{inner} \rbrace
+\rho \in \mathit{Env} = \lbrace \mathrm{top}, \mathrm{inner}, \mathrm{brk} \rbrace
 \\]
 
 ## 判断
@@ -21,7 +21,7 @@
 
 ## 評価関係
 
-\\(\Downarrow\\) は、以降のページの規則で帰納的に定義します。\\(\Downarrow\\) は部分関係で、エラー値を持ちません。[高さ](semantics/types.md#高さ) 4 以下の型について、規則は決定的です。
+\\(\Downarrow\\) は、以降のページの規則で帰納的に定義します。\\(\Downarrow\\) は部分関係で、エラー値を持ちません。規則は決定的です。
 
 ## 記法
 

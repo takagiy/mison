@@ -38,9 +38,12 @@ The special characters are:
 |---|---|
 | whitespace (space, tab, newline, ...) | separates fields and lines |
 | `=` | separates a key from its value |
-| `,` | separates the elements of an array |
+| `,` `;` | separate the elements of an array |
 | `(` `)` | group a nested value |
 | `"` | starts a quoted string |
+| `[` `]` | enclose an array of five or more dimensions |
+
+`[` and `]` are special only inside the `[ ]` of an [array of five or more dimensions](arrays.md#arrays-of-five-or-more-dimensions).
 
 ## Escapes
 

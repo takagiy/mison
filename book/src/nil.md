@@ -14,7 +14,7 @@ MISON has one way to say "nothing". These values are all nil:
 
 - an empty array,
 - an empty record,
-- an array whose only element is nil, at any depth.
+- an array whose only element is nil.
 
 ```json
 {"empty":[],"none":{},"void":[[[[[[[[[[]]]]]]]]]]}

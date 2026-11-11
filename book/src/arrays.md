@@ -1,6 +1,10 @@
-# Arrays
+# Arrays and matrices
 
-An array, or a tuple, is a sequence of values. Its elements are separated by `,`.
+An array, or a tuple, is a sequence of values.
+
+## Arrays
+
+A one-dimensional array separates its elements with `,`:
 
 ```json
 {"ingredients":["spam","ham","eggs"]}
@@ -10,9 +14,62 @@ An array, or a tuple, is a sequence of values. Its elements are separated by `,`
 ingredients=spam,ham,eggs
 ```
 
+## Matrices
+
+A two-dimensional array separates one-dimensional arrays with `;`:
+
+```json
+{"grid":[[1,2],[3,4]]}
+```
+
+```mison
+grid=1,2;3,4
+```
+
+A three-dimensional array separates two-dimensional arrays with `\n`:
+
+```json
+{"floors":[[[1,2],[3,4]],[[5,6],[7,8]]]}
+```
+
+```mison
+floors=(
+1,2;3,4
+5,6;7,8
+)
+```
+
+A four-dimensional array separates three-dimensional arrays with `\n----\n`:
+
+```json
+{"blocks":[[[[1,2],[3,4]],[[5,6],[7,8]]],[[[9,10],[11,12]],[[13,14],[15,16]]]]}
+```
+
+```mison
+blocks=(
+1,2;3,4
+5,6;7,8
+----
+9,10;11,12
+13,14;15,16
+)
+```
+
+## Arrays of five or more dimensions
+
+An array of five or more dimensions is written like a JSON array: every level is enclosed in `[ ]`, and elements are separated by `,`.
+
+```json
+{"blocks":[[[[[1,2]]]],[[[[3,4]]]]]}
+```
+
+```mison
+blocks=[[[[[1,2]]]],[[[[3,4]]]]]
+```
+
 ## Arrays at the top level
 
-A top-level array separates its elements with newlines instead of `,`:
+At the top level, one- and two-dimensional arrays separate their elements with newlines instead of `,` and `;`:
 
 ```json
 [{"name":"Ash","buddy":"Pikachu"},{"name":"Dawn","buddy":"Piplup"},{"name":"Brock","buddy":"Croagunk"}]
@@ -24,26 +81,23 @@ name=Dawn buddy=Piplup
 name=Brock buddy=Croagunk
 ```
 
-## Nested arrays
-
-A nested array is written in parentheses:
-
 ```json
-{"matrix":[[1,2,3],[4,5,6]]}
+[[1,2],[3,4]]
 ```
 
 ```mison
-matrix=(1,2,3),(4,5,6)
+1,2
+3,4
 ```
 
-## Arrays with one element
+## Tuples
 
-An array with a single element is written as that element, however deeply it is nested. The reader knows how many arrays to wrap the value back in.
+A tuple is written like an array. It is treated as having as many dimensions as an array of its element with the most dimensions. The `pair` below is a tuple of a one-dimensional array and a number, so it is separated by `;` like a two-dimensional array:
 
-| JSON | MISON |
-|---|---|
-| `{"teams":[["Ann","Ben"]]}` | `teams=Ann,Ben` |
-| `{"teams":[[["Ann"]]]}` | `teams=Ann` |
-| `{"teams":[["Ann"],["Ben"]]}` | `teams=(Ann),(Ben)` |
+```json
+{"pair":[["a","b"],3]}
+```
 
-The last row shows why elements of longer arrays keep their parentheses: without them, `[["Ann"],["Ben"]]` and `[["Ann","Ben"]]` would both be written `Ann,Ben`, and not even the reader's shape could tell them apart.
+```mison
+pair=a,b;3
+```

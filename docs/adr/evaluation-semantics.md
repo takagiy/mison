@@ -6,7 +6,7 @@ The book's formal definition (Syntax, Types and values, Semantics) states what a
 
 ## Decision
 
-Evaluation is defined by big-step rules over one judgment `ρ ⊢ e : τ ⇓ v`, whose environment `ρ ∈ {top, inner}` says whether the expression is the whole text. An array or tuple separates its elements by its height, so parentheses mark only a record or map used as an element or a field value, and blocks of lines in a field.
+Evaluation is defined by big-step rules over one judgment `ρ ⊢ e : τ ⇓ v`, whose environment `ρ ∈ {top, inner}` says whether the expression is the whole text. An array or tuple of height up to 4 separates its elements by its height, and a higher one is a bracket literal ([bracket-arrays.md](bracket-arrays.md)), so parentheses mark only a record or map used as an element or a field value, and blocks of lines in a field.
 
 | Issue | Decision | Why |
 |---|---|---|
@@ -17,31 +17,30 @@ Evaluation is defined by big-step rules over one judgment `ρ ⊢ e : τ ⇓ v`,
 | Nested nullable `τ??` | Ruled out by the type grammar (`?` attaches only to a non-null σ) | nil has exactly one spelling, ε, so `τ??` could not be told from `τ?` |
 | `range` with `a > b` | Evaluates to the empty set | A `range` always evaluates when the type fits |
 | E-Lift and ε | E-Lift requires `e ≠ ε` | Keeps evaluation deterministic |
-| An array of a single nil | Not a value: `⟦array⁺ τ⟧` leaves out `⟨nil⟩`, and E-One requires `v ≠ nil` | `[nil]` is nil (the Nil chapter). Leaving out `⟨nil⟩` at every level also leaves out `⟨⟨nil⟩⟩` and deeper |
+| An array of a single nil | Not a value: `⟦array⁺ τ⟧` leaves out `⟨nil⟩`, and E-Arr and E-BArr require `v₁ ≠ nil` when `n = 1` | `[nil]` is nil (the Nil chapter). Leaving out `⟨nil⟩` at every level also leaves out `⟨⟨nil⟩⟩` and deeper |
 | Nullable record fields | Cannot be omitted; written `a=` | The type alone fixes the form of the expression |
 | Duplicate labels | No derivation | JSON implementations disagree on them |
 | Unneeded parentheses | Not allowed | Keeps one way to write each value |
-| Separators | By the height of the array or tuple: `,` for 1, `;` for 2, a newline for 3, a `----` line for 4 and above | Each level that occurs in practice has its own separator, so values stay apart: `[[[1],[2]]]` is `1;2` while `[[[1]],[[2]]]` puts `1` and `2` on separate lines, and `[[nil,nil]]` is `,` while `[nil,nil]` is `;` |
-| An array with one element | Written as that element (E-One), with no condition on the text | The array's own separator never appears in a text of its element type, so E-One and E-Arr cannot both apply |
-| Parentheses | Around an element or field value whose text is a record or map, unless the elements are separated by newlines, and around a field value that holds a newline (a block) | Arrays no longer need them: their separators already say where each element ends |
-| The top level | In `top`, arrays and tuples of height up to 3 separate their elements by newlines; in `inner`, only height 3 does. Sub-expressions are evaluated in `inner` | Keeps one record per line, as edo writes its reports, without mistaking the top-level newline for the height-3 separator |
+| Separators | By the height of the array or tuple: `,` for 1, `;` for 2, a newline for 3, a `----` line for 4; higher ones are bracket literals | Each level that occurs in practice has its own separator, so values stay apart: `[[[1],[2]]]` is `1;2` while `[[[1]],[[2]]]` puts `1` and `2` on separate lines, and `[[nil,nil]]` is `,` while `[nil,nil]` is `;` |
+| An array with one element | E-Arr with `n = 1`: the element alone, with no separator | The separator comes from the type, so a one-element array needs no rule of its own. The array's own separator never appears in a text of its element type, so `n = 1` and `n ≥ 2` cannot both apply |
+| Parentheses | Around an element or field value whose text is a record or map, unless the array has one element or its elements are separated by newlines, and around a field value that holds a newline (a block) | Arrays no longer need them: their separators already say where each element ends |
+| The top level | In `top`, arrays and tuples of height 1 and 2 also separate their elements by newlines; from height 3 on, `top` and `inner` agree. Sub-expressions are evaluated in `inner` | Keeps one record per line, as edo writes its reports, without mistaking the top-level newline for the height-3 separator |
 | Whitespace around commas | Not allowed | Keeps one way to write each value |
 | A trailing newline | Not part of the grammar; `1⏎` is the lines `1` and ε | Removes the ambiguity between a trailing newline and a last empty line without extra rules |
 
 ## Consequences
 
-- Gained: evaluation is deterministic for types of height at most 4. For any such `(e, τ)` there is at most one `v`, which follows by induction on expressions and types:
+- Gained: evaluation is deterministic. For any `(e, τ)` there is at most one `v`, which follows by induction on expressions and types:
   - each scalar type has one rule, and the interpretations 𝒩, 𝒟 and 𝒮 are functions;
   - E-Nil and E-Lift are told apart by whether the expression is ε;
-  - E-Arr, E-Tup and E-Rec are told apart by the form of the type, and the syntax splits an expression into its elements in exactly one way;
-  - E-Arr and E-One are told apart by the separator: an array's separator does not occur in a text of its element type;
-  - in `top`, heights up to 3 are separated by newlines, while E-One evaluates its element in `inner`, where no newline separates heights below 3.
+  - E-Arr, E-Tup and E-Rec are told apart by the form of the type, and E-Arr and E-Tup from E-BArr and E-BTup by the height and the environment, and the syntax splits an expression into its elements in exactly one way;
+  - E-Arr with `n = 1` and with `n ≥ 2` are told apart by the separator: an array's separator does not occur in a text of its element type;
+  - in `top`, heights 1 and 2 are separated by newlines too, while a one-element array evaluates its element in `inner`, where no newline separates heights below 3.
 - Gained: the book can state the rules without exceptions or error cases.
 - Lost: a printer (value to text) needs canonical spellings, because evaluation is not injective. 𝒩 is a bijection and a non-empty `range` has one literal, but the empty range has many, and 𝒟 (`1`, `1.0`, `10e-1`) and 𝒮 (`abc`, `"abc"`) map several literals to one value.
-- Lost: types of height 5 or more share the `----` separator with height 4, so some of their values collide.
-- Lost: a line that is just the string `----`, inside an array of height 4 or more, reads as a separator; a writer must quote it.
+- Lost: a line that is just the string `----`, inside an array of height 4, reads as a separator; a writer must quote it.
 - Lost: `;` is a special character, so a bare string cannot hold it.
-- Lost: the library writes the earlier notation (parentheses around array elements, no `;`) and has to change.
+- Lost: the library writes the earlier notation (parentheses around array elements, no `;`, no bracket literal) and has to change.
 - Lost: the library reads more than the specification allows. It skips one trailing newline, accepts newlines inside parentheses as field separators, and skips extra whitespace around record fields. These texts have no derivation in the specification.
 
 ## Alternatives not taken
