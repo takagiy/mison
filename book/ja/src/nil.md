@@ -2,11 +2,29 @@
 
 nil は、値がないことを表します。何も書かないことで表します。
 
-| JSON | MISON |
-|---|---|
-| `null` | （空のテキスト） |
-| `{"name":null}` | `name=` |
-| `{"answers":[0,null,42]}` | `answers=0,,42` |
+```json
+null
+```
+
+```mison
+
+```
+
+```json
+{"name":null}
+```
+
+```mison
+name=
+```
+
+```json
+{"answers":[0,null,42]}
+```
+
+```mison
+answers=0,,42
+```
 
 ## 何も持たない値は nil
 

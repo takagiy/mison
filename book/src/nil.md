@@ -2,11 +2,29 @@
 
 Nil is the absence of a value. It is written as nothing.
 
-| JSON | MISON |
-|---|---|
-| `null` | (empty text) |
-| `{"name":null}` | `name=` |
-| `{"answers":[0,null,42]}` | `answers=0,,42` |
+```json
+null
+```
+
+```mison
+
+```
+
+```json
+{"name":null}
+```
+
+```mison
+name=
+```
+
+```json
+{"answers":[0,null,42]}
+```
+
+```mison
+answers=0,,42
+```
 
 ## Values that hold nothing are nil
 

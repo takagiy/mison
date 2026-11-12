@@ -4,7 +4,7 @@ The following pages define evaluation as a big-step operational semantics.
 
 ## Environment
 
-The environment \\(\rho\\) of an evaluation says where the expression is: \\(\mathrm{top}\\) for the whole text, \\(\mathrm{inner}\\) for inside a text, and \\(\mathrm{brk}\\) for an element of a \\(\mathit{BracketArray}\\).
+The environment \\(\rho\\) of an evaluation says where the expression is: \\(\mathrm{top}\\) for the top level, \\(\mathrm{inner}\\) for inside a text, and \\(\mathrm{brk}\\) for an element of a \\(\mathit{BracketArray}\\).
 
 \\[
 \rho \in \mathit{Env} = \lbrace \mathrm{top}, \mathrm{inner}, \mathrm{brk} \rbrace
@@ -17,7 +17,7 @@ The environment \\(\rho\\) of an evaluation says where the expression is: \\(\ma
 \rho \vdash e : \tau \Downarrow v
 \\]
 
-It says that evaluating the expression \\(e\\) ([Syntax](semantics/syntax.md)) as the type \\(\tau\\) in the environment \\(\rho\\) gives the value \\(v \in [\negthinspace[\tau]\negthinspace]\\) ([Types and values](semantics/types.md)). A text \\(t \in \mathit{Toplevel}\\) is evaluated in \\(\mathrm{top}\\).
+It says that evaluating the expression \\(e\\) ([Syntax](semantics/syntax.md)) as the type \\(\tau\\) in the environment \\(\rho\\) gives the value \\(v \in [\negthinspace[\tau]\negthinspace]\\) ([Types and values](semantics/types.md)).
 
 ## Evaluation relation
 

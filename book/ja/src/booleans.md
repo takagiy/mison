@@ -3,9 +3,9 @@
 真偽値は `true` か `false` と書きます。
 
 ```json
-{"ok":true}
+{"isActive":true,"isArchived":false}
 ```
 
 ```mison
-ok=true
+isActive=true isArchived=false
 ```

@@ -3,9 +3,9 @@
 A boolean is written `true` or `false`.
 
 ```json
-{"ok":true}
+{"isActive":true,"isArchived":false}
 ```
 
 ```mison
-ok=true
+isActive=true isArchived=false
 ```

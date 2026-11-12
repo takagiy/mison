@@ -1,13 +1,13 @@
 # Variants
 
-A variant is one of several cases, chosen by name. A case with contents is written as its name followed by the contents in parentheses:
+A variant is a value that can be of several kinds. It is written as a combination of a tag for its kind and the data it contains:
 
 ```json
-{"type":"rect","w":1,"h":2}
+{"type":"rect","width":1,"height":2}
 ```
 
 ```mison
-rect(w=1 h=2)
+rect(width=1 height=2)
 ```
 
 ```json
@@ -28,7 +28,7 @@ The contents can be any value, not only a record:
 result=err("not found")
 ```
 
-A case without contents is written as its name alone:
+A kind without contents is written as its tag alone:
 
 ```json
 {"result":{"type":"ok"}}

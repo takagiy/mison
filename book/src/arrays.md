@@ -29,21 +29,21 @@ todos=(task=laundry done=true),(task=groceries done=false)
 A two-dimensional array separates one-dimensional arrays with `;`:
 
 ```json
-{"grid":[[1,2],[3,4]]}
+{"matrix":[[1,2],[3,4]]}
 ```
 
 ```mison
-grid=1,2;3,4
+matrix=1,2;3,4
 ```
 
 A three-dimensional array separates two-dimensional arrays with `\n`:
 
 ```json
-{"floors":[[[1,2],[3,4]],[[5,6],[7,8]]]}
+{"matrix":[[[1,2],[3,4]],[[5,6],[7,8]]]}
 ```
 
 ```mison
-floors=(
+matrix=(
 1,2;3,4
 5,6;7,8
 )
@@ -52,11 +52,11 @@ floors=(
 A four-dimensional array separates three-dimensional arrays with `\n----\n`:
 
 ```json
-{"blocks":[[[[1,2],[3,4]],[[5,6],[7,8]]],[[[9,10],[11,12]],[[13,14],[15,16]]]]}
+{"matrix":[[[[1,2],[3,4]],[[5,6],[7,8]]],[[[9,10],[11,12]],[[13,14],[15,16]]]]}
 ```
 
 ```mison
-blocks=(
+matrix=(
 1,2;3,4
 5,6;7,8
 ----
@@ -70,11 +70,11 @@ blocks=(
 An array of five or more dimensions is written like a JSON array: every level is enclosed in `[ ]`, and elements are separated by `,`.
 
 ```json
-{"blocks":[[[[[1,2]]]],[[[[3,4]]]]]}
+{"matrix":[[[[[1,2]]]],[[[[3,4]]]]]}
 ```
 
 ```mison
-blocks=[[[[[1,2]]]],[[[[3,4]]]]]
+matrix=[[[[[1,2]]]],[[[[3,4]]]]]
 ```
 
 ## Arrays at the top level

@@ -5,9 +5,9 @@
 浮動小数点数もそのまま書きます。整数に等しい値は、小数部を書きません。非数と無限大は `NaN`、`inf`、`-inf` と書きます。
 
 ```json
-{"price":1.5,"weight":1.0,"delta":-3}
+{"count":20,"price":1.5,"weight":1.0}
 ```
 
 ```mison
-price=1.5 weight=1 delta=-3
+count=20 price=1.5 weight=1
 ```

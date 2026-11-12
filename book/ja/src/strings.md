@@ -13,11 +13,11 @@ alice@example.com
 空の文字列は `""` と書きます。
 
 ```json
-{"nickname":""}
+""
 ```
 
 ```mison
-nickname=""
+""
 ```
 
 ## 引用符で囲む文字列
@@ -47,13 +47,23 @@ nickname=""
 
 ## エスケープ
 
-引用符の中では、`"` を `\"`、`\` を `\\` と書きます。改行はエスケープしません。
+引用符の中では、`"` を `\"`、`\` を `\\` と書きます。
 
 ```json
-{"greet":"Hello\nWorld","quote":"say \"hi\""}
+"say \"hi\""
 ```
 
 ```mison
-greet="Hello
-World" quote="say \"hi\""
+"say \"hi\""
+```
+
+改行はエスケープする必要がありません。
+
+```json
+"Hello\nWorld"
+```
+
+```mison
+"Hello
+World"
 ```

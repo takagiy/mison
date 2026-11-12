@@ -13,11 +13,11 @@ alice@example.com
 An empty string is written `""`.
 
 ```json
-{"nickname":""}
+""
 ```
 
 ```mison
-nickname=""
+""
 ```
 
 ## Quoted strings
@@ -47,13 +47,23 @@ The special characters are:
 
 ## Escapes
 
-Inside quotes, `"` is written `\"` and `\` is written `\\`. A newline is not escaped:
+Inside quotes, `"` is written `\"` and `\` is written `\\`:
 
 ```json
-{"greet":"Hello\nWorld","quote":"say \"hi\""}
+"say \"hi\""
 ```
 
 ```mison
-greet="Hello
-World" quote="say \"hi\""
+"say \"hi\""
+```
+
+A newline need not be escaped:
+
+```json
+"Hello\nWorld"
+```
+
+```mison
+"Hello
+World"
 ```

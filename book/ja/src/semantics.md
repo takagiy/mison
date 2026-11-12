@@ -4,7 +4,7 @@
 
 ## 環境
 
-評価の環境 \\(\rho\\) は、式の位置を表します。\\(\mathrm{top}\\) はテキスト全体、\\(\mathrm{inner}\\) はテキストの中、\\(\mathrm{brk}\\) は \\(\mathit{BracketArray}\\) の要素です。
+評価の環境 \\(\rho\\) は、式の位置を表します。\\(\mathrm{top}\\) はトップレベル、\\(\mathrm{inner}\\) はテキストの中、\\(\mathrm{brk}\\) は \\(\mathit{BracketArray}\\) の要素です。
 
 \\[
 \rho \in \mathit{Env} = \lbrace \mathrm{top}, \mathrm{inner}, \mathrm{brk} \rbrace
@@ -17,7 +17,7 @@
 \rho \vdash e : \tau \Downarrow v
 \\]
 
-環境 \\(\rho\\) で、式 \\(e\\)（[構文](semantics/syntax.md)）を型 \\(\tau\\) として評価すると、値 \\(v \in [\negthinspace[\tau]\negthinspace]\\)（[型と値](semantics/types.md)）になる、という判断です。テキスト \\(t \in \mathit{Toplevel}\\) は \\(\mathrm{top}\\) で評価します。
+環境 \\(\rho\\) で、式 \\(e\\)（[構文](semantics/syntax.md)）を型 \\(\tau\\) として評価すると、値 \\(v \in [\negthinspace[\tau]\negthinspace]\\)（[型と値](semantics/types.md)）になる、という判断です。
 
 ## 評価関係
 
