@@ -1,0 +1,45 @@
+name: Book
+
+# Publishes the book to GitHub Pages: English at the site's root, Japanese under ja/.
+on:
+  push:
+    branches: [master]
+    paths: ["book/**", ".github/workflows/book.yml"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# One deployment at a time; a newer push replaces a queued one.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: jdx/mise-action@v5
+        with:
+          install_args: mdbook
+      - run: |
+          mdbook build book
+          mdbook build book/ja
+          cp -r book/ja/book book/book/ja
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: book/book
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/deploy-pages@v5
+        id: deployment

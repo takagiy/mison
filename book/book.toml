@@ -9,3 +9,4 @@ src = "src"
 mathjax-support = true
 additional-css = ["theme/code-labels.css"]
 git-repository-url = "https://github.com/takagiy/mison"
+site-url = "/mison/"
