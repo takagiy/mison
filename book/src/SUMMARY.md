@@ -8,6 +8,7 @@
 - [Numbers](numbers.md)
 - [Booleans](booleans.md)
 - [Records](records.md)
+- [Variants](variants.md)
 - [Arrays, matrices and tuples](arrays.md)
 - [Nil](nil.md)
 - [Ranges](ranges.md)
@@ -21,3 +22,4 @@
   - [Nullable types](semantics/nullable.md)
   - [Arrays and tuples](semantics/arrays.md)
   - [Records and maps](semantics/records.md)
+  - [Variants](semantics/variants.md)

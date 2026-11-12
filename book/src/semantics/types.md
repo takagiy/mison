@@ -12,15 +12,20 @@ Types are defined inductively as follows. They do not appear in a MISON text; th
 & \mid & \tau_1 \ast \cdots \ast \tau_n \quad (n \ge 2) & \text{tuple} \cr
 & \mid & \mathsf{record}\ \lbrace l_1 : \tau_1, \dots, l_n : \tau_n \rbrace \quad (n \ge 1,\ i \neq j \Rightarrow l_i \neq l_j) & \text{record} \cr
 & \mid & \mathsf{map}^{+}\ \tau & \text{non-empty map} \cr
+& \mid & \mathsf{variant}\ \lbrace c_1, \dots, c_n \rbrace \quad (n \ge 1,\ \text{distinct labels}) & \text{variant} \cr
+c & ::= & l \mid l : \tau & \text{case} \cr
 \mathsf{array}\ \tau & := & (\mathsf{array}^{+}\ \tau)? & \text{array} \cr
 \mathsf{map}\ \tau & := & (\mathsf{map}^{+}\ \tau)? & \text{map}
 \end{array}
 \\]
 
-Record types that differ only in the order of their fields are the same type.
+Record types that differ only in the order of their fields, and variant types that differ only in the order of their cases, are the same type.
 
 \\[
-\mathsf{record}\ \lbrace l_1 : \tau_1, \dots, l_n : \tau_n \rbrace = \mathsf{record}\ \lbrace l_{\pi(1)} : \tau_{\pi(1)}, \dots, l_{\pi(n)} : \tau_{\pi(n)} \rbrace \quad \text{for any permutation } \pi
+\begin{array}{l}
+\mathsf{record}\ \lbrace l_1 : \tau_1, \dots, l_n : \tau_n \rbrace = \mathsf{record}\ \lbrace l_{\pi(1)} : \tau_{\pi(1)}, \dots, l_{\pi(n)} : \tau_{\pi(n)} \rbrace \quad \text{for any permutation } \pi \cr
+\mathsf{variant}\ \lbrace c_1, \dots, c_n \rbrace = \mathsf{variant}\ \lbrace c_{\pi(1)}, \dots, c_{\pi(n)} \rbrace
+\end{array}
 \\]
 
 Operators bind from strongest to weakest: \\(?\\), \\(\mathsf{array}^{+}\\) and \\(\mathsf{map}^{+}\\), \\(\ast\\).
@@ -52,6 +57,7 @@ The values \\([\negthinspace[\tau]\negthinspace]\\) of a type \\(\tau\\) are def
 [\negthinspace[\mathsf{array}^{+}\ \tau]\negthinspace] & = & \lbrace \langle v_1, \dots, v_n \rangle \mid n \ge 1,\ v_i \in [\negthinspace[\tau]\negthinspace] \rbrace \setminus \lbrace \langle \mathsf{nil} \rangle \rbrace \cr
 [\negthinspace[\tau_1 \ast \cdots \ast \tau_n]\negthinspace] & = & \lbrace \langle v_1, \dots, v_n \rangle \mid v_i \in [\negthinspace[\tau_i]\negthinspace] \rbrace \cr
 [\negthinspace[\mathsf{record}\ \lbrace l_1 : \tau_1, \dots, l_n : \tau_n \rbrace]\negthinspace] & = & \lbrace \lbrace l_1 \mapsto v_1, \dots, l_n \mapsto v_n \rbrace \mid v_i \in [\negthinspace[\tau_i]\negthinspace] \rbrace \cr
+[\negthinspace[\mathsf{variant}\ \lbrace c_1, \dots, c_n \rbrace]\negthinspace] & = & \lbrace (l, v) \mid c_i = (l : \tau),\ v \in [\negthinspace[\tau]\negthinspace] \rbrace \cup \lbrace l \mid c_i = l \rbrace \cr
 [\negthinspace[\mathsf{map}^{+}\ \tau]\negthinspace] & = & \lbrace f : [\negthinspace[\mathsf{string}]\negthinspace] \rightharpoonup_{\mathrm{fin}} [\negthinspace[\tau]\negthinspace] \mid \mathrm{dom}(f) \neq \emptyset \rbrace \cr
 [\negthinspace[\sigma?]\negthinspace] & = & [\negthinspace[\sigma]\negthinspace] \cup \lbrace \mathsf{nil} \rbrace \cr
 \text{where}\quad \langle v_1, \dots, v_n \rangle & = & \lbrace 1 \mapsto v_1, \dots, n \mapsto v_n \rbrace

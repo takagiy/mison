@@ -8,6 +8,7 @@
 - [数値](numbers.md)
 - [真偽値](booleans.md)
 - [レコード](records.md)
+- [バリアント](variants.md)
 - [配列、マトリクス、タプル](arrays.md)
 - [nil](nil.md)
 - [範囲](ranges.md)
@@ -21,3 +22,4 @@
   - [nullable 型](semantics/nullable.md)
   - [配列とタプル](semantics/arrays.md)
   - [レコードとマップ](semantics/records.md)
+  - [バリアント](semantics/variants.md)

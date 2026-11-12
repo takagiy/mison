@@ -14,7 +14,7 @@ An expression of a record or map type is evaluated by the following rules.
 \\]
 
 \\[
-\text{where}\quad \mathit{field}\_i = \begin{cases} \ell_i\code{\texttt{=}}e_i & \text{if } e_i \in \mathit{Atom} \cup \mathit{Array} \cup \mathit{BracketArray} \cr \ell_i\code{\texttt{=(}}e_i\code{\texttt{)}} & \text{if } e_i \in \mathit{Record} \cr \ell_i\code{\texttt{=(}}\ \mathit{Newline}\ e_i\ \mathit{Newline}\ \code{\texttt{)}} & \text{if } e_i \in \mathit{Matrix} \end{cases}
+\text{where}\quad \mathit{field}\_i = \begin{cases} \ell_i\code{\texttt{=}}e_i & \text{if } e_i \in \mathit{Atom} \cup \mathit{Array} \cup \mathit{Variant} \cup \mathit{BracketArray} \cr \ell_i\code{\texttt{=(}}e_i\code{\texttt{)}} & \text{if } e_i \in \mathit{Record} \cr \ell_i\code{\texttt{=(}}\ \mathit{Newline}\ e_i\ \mathit{Newline}\ \code{\texttt{)}} & \text{if } e_i \in \mathit{Matrix} \end{cases}
 \\]
 
 \\(\ell_i\\) is the key as written in the expression, and \\(l_i = \mathcal{S}(\ell_i)\\) is the label it stands for. So `a=1` and `"a"=1` have the same label. Since the order of the fields in a record type does not matter, the fields of an expression may be written in any order. A duplicate, missing or extra label has no derivation.
