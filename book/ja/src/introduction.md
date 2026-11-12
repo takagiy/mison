@@ -2,14 +2,14 @@
 
 ## 概要
 
-MISON（minimal and simple object notation）は、JSON に似た、よりシンプルな構造化データの記法です。初めて見る人も読みやすく、そのため言語モデルにとっても解釈しやすくなっています。
+MISON（minimal and simple object notation）は、JSON に似た、token-efficient で human-friendly な構造化データの記法です。初めて見る人も読みやすく、そのため言語モデルにとっても解釈しやすくなっています。
 
 ```json
-[{"ok":true,"file":"a.rs","range":[[2,2]]}]
+[{"ok":true,"file":"a.rs","ranges":[{"start":10,"end":15},{"start":20,"end":25}]}]
 ```
 
 ```mison
-ok=true file=a.rs range=2-2
+ok=true file=a.rs ranges=10-15,20-25
 ```
 
 ## 用途

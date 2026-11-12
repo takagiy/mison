@@ -1,10 +1,10 @@
 # mison
 
-MISON (minimal and simple object notation) is a JSON-like notation that is token-efficient yet human-friendly. It is easy to read even for people seeing it for the first time, and so for language models too. This crate implements it for [serde](https://serde.rs).
+MISON (minimal and simple object notation) is a JSON-like notation for structured data that is token-efficient yet human-friendly. It is easy to read even for people seeing it for the first time, and so for language models too. This crate implements it for [serde](https://serde.rs).
 
 ```text
-JSON:  [{"ok":true,"file":"a.rs","range":[[2,2]]}]
-MISON: ok=true file=a.rs range=2-2
+JSON:  [{"ok":true,"file":"a.rs","ranges":[{"start":10,"end":15},{"start":20,"end":25}]}]
+MISON: ok=true file=a.rs ranges=10-15,20-25
 ```
 
 Its main use is passing structured data to a language model. Exchanges between programs with no language model in between, such as RPC or API requests and responses, are not intended.
@@ -21,12 +21,12 @@ use std::ops::RangeInclusive;
 struct Report {
     ok: bool,
     file: String,
-    range: Vec<RangeInclusive<usize>>,
+    ranges: Vec<RangeInclusive<usize>>,
 }
 
-let report = Report { ok: true, file: "a.rs".into(), range: vec![2..=2] };
+let report = Report { ok: true, file: "a.rs".into(), ranges: vec![10..=15, 20..=25] };
 let text = mison::to_string(&report)?;
-assert_eq!(text, "ok=true file=a.rs range=2-2");
+assert_eq!(text, "ok=true file=a.rs ranges=10-15,20-25");
 assert_eq!(mison::from_str::<Report>(&text)?, report);
 # Ok::<(), mison::Error>(())
 ```

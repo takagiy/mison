@@ -2,14 +2,14 @@
 
 ## Overview
 
-MISON (minimal and simple object notation) is a simpler JSON-like notation for structured data. It is easy to read even for people seeing it for the first time, and so for language models too.
+MISON (minimal and simple object notation) is a JSON-like notation for structured data that is token-efficient yet human-friendly. It is easy to read even for people seeing it for the first time, and so for language models too.
 
 ```json
-[{"ok":true,"file":"a.rs","range":[[2,2]]}]
+[{"ok":true,"file":"a.rs","ranges":[{"start":10,"end":15},{"start":20,"end":25}]}]
 ```
 
 ```mison
-ok=true file=a.rs range=2-2
+ok=true file=a.rs ranges=10-15,20-25
 ```
 
 ## Use cases
