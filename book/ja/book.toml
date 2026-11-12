@@ -1,6 +1,6 @@
 [book]
 title = "MISON"
-description = "Minimal and simple object notation: JSON に似た、トークン効率がよく人にも読みやすい記法"
+description = "Minimal and simple object notation: JSON に似た、token-efficient で human-friendly な構造化データの記法"
 authors = ["Yuki Takagi"]
 language = "ja"
 src = "src"
