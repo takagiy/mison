@@ -8,7 +8,7 @@ Line ranges and other spans are common in tool output, and `1-2` is shorter and 
 
 A range is written `start-end` and includes its end. A negative end is written in parentheses: `(-3)-(-1)`. Every other pair, including a two-element array, is written as an array.
 
-mison implements `Schema` for `RangeInclusive` only. A program holding a `Range` `a..b` writes it as `a..=b-1`.
+mison implements `Encode` and `Decode` for `RangeInclusive` only. A program holding a `Range` `a..b` writes it as `a..=b-1`.
 
 ## Consequences
 

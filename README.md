@@ -1,6 +1,6 @@
 # mison
 
-MISON (minimal and simple object notation) is a JSON-like notation for structured data that is token-efficient yet human-friendly. It is easy to read even for people seeing it for the first time, and so for language models too. This crate implements it for [serde](https://serde.rs).
+MISON (minimal and simple object notation) is a JSON-like notation for structured data that is token-efficient yet human-friendly. It is easy to read even for people seeing it for the first time, and so for language models too. This crate reads and writes it for Rust types.
 
 ```text
 JSON:  [{"ok":true,"file":"a.rs","ranges":[{"start":10,"end":15},{"start":20,"end":25}]}]
@@ -14,10 +14,9 @@ A program parsing MISON uses the type of the data it expects as a schema. So MIS
 ## Usage
 
 ```rust
-use serde::{Deserialize, Serialize};
 use std::ops::RangeInclusive;
 
-#[derive(Serialize, Deserialize, PartialEq, Debug)]
+#[derive(mison::Encode, mison::Decode, PartialEq, Debug)]
 struct Report {
     ok: bool,
     file: String,
@@ -25,7 +24,7 @@ struct Report {
 }
 
 let report = Report { ok: true, file: "a.rs".into(), ranges: vec![10..=15, 20..=25] };
-let text = mison::to_string(&report)?;
+let text = mison::to_string(&report);
 assert_eq!(text, "ok=true file=a.rs ranges=10-15,20-25");
 assert_eq!(mison::from_str::<Report>(&text)?, report);
 # Ok::<(), mison::Error>(())

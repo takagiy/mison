@@ -10,7 +10,7 @@ MISON had no type for "one of several cases", which Rust programs use for result
 - A case with contents is written `name(contents)`, the contents written as a field value would be: a record without its own parentheses (`rect(width=1 height=2)`), a matrix between newlines. A case without contents is the bare name (`ok`).
 - A variant has height 0, like a record.
 - There is no general unit type: a case without contents is the only value that is just a name.
-- `#[derive(mison::Schema)]` maps each enum variant to a case: a unit variant to a case without contents, `V(T)` to `V : T`, a tuple variant to a case whose contents are a tuple, and a struct variant to a case whose contents are a record. This is the externally tagged form, and the only one offered.
+- `#[derive(mison::Encode, mison::Decode)]` maps each enum variant to a case: a unit variant to a case without contents, `V(T)` to `V : T`, a tuple variant to a case whose contents are a tuple, and a struct variant to a case whose contents are a record. This is the externally tagged form, and the only one offered.
 
 ## Consequences
 

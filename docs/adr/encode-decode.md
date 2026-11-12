@@ -1,4 +1,4 @@
-# Read and write through mison's own Schema trait instead of serde
+# Read and write through mison's own Encode and Decode traits instead of serde
 
 ## Context
 
@@ -11,10 +11,11 @@ serde hands a Serializer only values, so nil and empty arrays carry no height. A
 
 ## Decision
 
-- mison defines a trait `mison::Schema`. It has a constant `HEIGHT`, the type's height as the book defines it, and methods to write a value and to read one.
-- Users get it with `#[derive(mison::Schema)]`, which comes from a proc-macro crate `mison-derive` in the same workspace and is re-exported by `mison`. The derive takes no attributes: field and variant names are the Rust identifiers.
-- mison implements `Schema` for `bool`, the integer and float types, `String`, `&str`, `Vec`, arrays, `Option`, `Box`, tuples up to about 12 elements, `HashMap`, `BTreeMap` and `RangeInclusive`.
-- Reading and writing are split into a core, `Writer` and `Reader`, which speaks only MISON terms (height, record, variant, nil, scalar), and the `Schema` layer, which calls it. The core stays `pub(crate)` until a second entry point needs it; entry points for serde or facet can then be added as cargo features.
+- mison defines two traits. `mison::Encode` has a constant `HEIGHT`, the type's height as the book defines it, and a method to write a value. `mison::Decode: Encode` has a method to read one, and takes the height from `Encode`.
+- Users get them with `#[derive(mison::Encode, mison::Decode)]`, which come from a proc-macro crate `mison-derive` in the same workspace and are re-exported by `mison`. The derives take no attributes: field and variant names are the Rust identifiers.
+- mison implements both for `bool`, the integer and float types, `String`, `Vec`, arrays, `Option`, `Box`, tuples up to 12 elements, `HashMap`, `BTreeMap` and `RangeInclusive`. `str`, `[T]` and references implement only `Encode`, as a read cannot return them.
+- Reading and writing are split into a core, `Writer` and `Reader`, which speaks only MISON terms (height, record, variant, nil, scalar), and the trait implementations, which call it. The core is public, as the code the derives generate calls it.
+- `Writer` takes fields and elements as generic `Encode` values, not trait objects. It knows where a value is written (the top level, a field value, the contents of a case, an element), and each record and array chooses its parentheses and newlines from that. A value that writes nothing is nil.
 - Numbers are formatted with itoa and ryu.
 - Recursive types are out of scope, as the book's types have none.
 - 0.2.0 removes the serde implementation and the serde dependency.
@@ -25,10 +26,12 @@ serde hands a Serializer only values, so nil and empty arrays carry no height. A
 - Gained: a value can be written from its first element on, without first building a tree as the serde writer did.
 - Gained: ranges and variants are types of the trait itself, not mapped from another data model.
 - Gained: no name or shape has to agree between two mechanisms.
-- Lost: a breaking change. Types need `#[derive(mison::Schema)]` instead of serde's derives, and a type from another crate that implements only serde has to be wrapped in a local newtype.
+- Lost: a breaking change. Types need `#[derive(mison::Encode, mison::Decode)]` instead of serde's derives, and a type from another crate that implements only serde has to be wrapped in a local newtype.
 - Lost: no `rename`, `skip` or `flatten`. A field whose name in the text differs from its Rust name cannot be written.
 - Lost: mison maintains its own derive, the std implementations, and a second crate to publish.
 - Lost: recursive types cannot be read or written.
+- Lost: `Writer` and `Reader` are public, so changing them breaks hand-written implementations.
+- Lost: `Writer`'s generic methods are compiled once for each type written.
 
 ## Alternatives not taken
 
@@ -36,4 +39,6 @@ serde hands a Serializer only values, so nil and empty arrays carry no height. A
 - Keeping serde and tracing `Deserialize` with a probe Deserializer, as serde-reflection does, always agrees with serde. But writing then needs `Deserialize` too, types that check their values (`NonZeroU32`) fail on dummy values, and an enum has to be traced once per variant.
 - Keeping serde and taking the schema from schemars' `JsonSchema` follows serde's attributes, so names agree. But users add a third derive, JSON Schema does not tell MISON's types apart (a range is an object with `start` and `end`), and a hand-written `Serialize` can drift from its schema.
 - facet was the only reflection crate surveyed that gives a type's shape statically (`SHAPE`) and builds values generically (`Peek`, `Partial`), which fits reading by type. It was not taken: it is before 1.0 with breaking changes every few weeks, needs Rust 1.90 or later, brings many dependencies, and its serializer interface does not pass the type to `begin_seq`, so mison would walk `Shape` itself anyway. Once the height turned out to be one constant per type, its machinery was not needed. bevy_reflect needs `'static + Send + Sync` and has no `rename`; schemars, specta and ts-rs only describe types and cannot build values.
+- One trait for both writing and reading cannot be implemented by `str` and `[T]`, as a read cannot return them, so writing them would need a second trait anyway.
+- A writing trait used as `&dyn` lets `Writer` take fields and elements of different types without generics. But each value then has to tell `Writer` beforehand whether it is nil, a record or a matrix, which repeats what its writing decides, and the trait cannot carry `HEIGHT`.
 - Changing the spec to separate by depth from the outside fits serde's one-hint-at-a-time model, but then `1,2,3` and `1,2;3,4` cannot both be written: one of the two common shapes gets the less readable separator.

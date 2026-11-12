@@ -6,9 +6,9 @@ MISON exists to be shorter than JSON, and most of what it saves is type informat
 
 ## Decision
 
-The type a program reads into is the schema. `mison::from_str::<T>` reads the text as the type `T` declares, through `T`'s `Schema` implementation ([schema-trait.md](schema-trait.md)). MISON is a format that does not describe itself, like bincode.
+The type a program reads into is the schema. `mison::from_str::<T>` reads the text as the type `T` declares, through `T`'s `Decode` implementation ([encode-decode.md](encode-decode.md)). MISON is a format that does not describe itself, like bincode.
 
-A type that asks the text what it holds, such as an enum that tells its cases apart by their contents, has no `Schema` implementation ([variants.md](variants.md)).
+A type that asks the text what it holds, such as an enum that tells its cases apart by their contents, has no `Decode` implementation ([variants.md](variants.md)).
 
 ## Consequences
 

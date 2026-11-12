@@ -1,0 +1,15 @@
+[package]
+name = "mison-derive"
+version = "0.2.0"
+edition = "2024"
+license = "MIT"
+description = "The derive macros for mison::Encode and mison::Decode"
+repository = "https://github.com/takagiy/mison"
+
+[lib]
+proc-macro = true
+
+[dependencies]
+proc-macro2 = "1"
+quote = "1"
+syn = "2"

@@ -6,11 +6,13 @@ license = "MIT"
 description = "Minimal and simple object notation: JSON-like, token-efficient yet human-friendly"
 repository = "https://github.com/takagiy/mison"
 readme = "README.md"
-keywords = ["serde", "serialization", "format"]
+keywords = ["serialization", "format"]
 categories = ["encoding"]
 
 [dependencies]
-serde = "1"
+itoa = "1"
+ryu = "1"
+mison-derive = { version = "0.2.0", path = "mison-derive" }
 
-[dev-dependencies]
-serde = { version = "1", features = ["derive"] }
+[workspace]
+members = ["mison-derive"]
