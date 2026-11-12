@@ -6,7 +6,7 @@ serde_json has `serde_json::Value`, which holds any JSON value and is both built
 
 ## Decision
 
-The first version has no `Value` type. Output whose shape varies is written from structs with `Option` fields, and ranges from `Range` or `RangeInclusive` fields.
+The first version has no `Value` type. Output whose shape varies is written from structs with `Option` fields, and ranges from `RangeInclusive` fields.
 
 ## Consequences
 
