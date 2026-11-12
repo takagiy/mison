@@ -13,11 +13,11 @@ run = "mdbook serve book --open"
 
 [tasks.test]
 description = "Run all tests"
-run = "cargo test"
+run = "cargo test --workspace"
 
 [tasks.lint]
 description = "Run clippy, failing on warnings"
-run = "cargo clippy --all-targets -- -D warnings"
+run = "cargo clippy --workspace --all-targets -- -D warnings"
 
 [tasks.fmt]
 description = "Format the code"

@@ -1,6 +1,6 @@
 [package]
 name = "mison"
-version = "0.1.2"
+version = "0.2.0"
 edition = "2024"
 license = "MIT"
 description = "Minimal and simple object notation: JSON-like, token-efficient yet human-friendly"
